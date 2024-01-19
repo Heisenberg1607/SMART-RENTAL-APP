@@ -1,0 +1,15 @@
+.navbar{
+    display:flex;
+    color: red;
+    justify-content: space-between;
+    margin: 1rem;
+}
+
+.links{
+    display:flex;
+    list-style:none;
+    width: 200px;
+    justify-content: space-between;
+    
+}
+
