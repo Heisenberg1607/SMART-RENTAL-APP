@@ -40,7 +40,7 @@ const Navbar = () => {
               Sign Up
             </Typography>
           </Link>
-          <Link href="/login" color="inherit">
+          <Link href="/Login" color="inherit">
             <Typography variant="subtitle1" sx={{ ml: 2, mr: 2 }}>
               Login
             </Typography>

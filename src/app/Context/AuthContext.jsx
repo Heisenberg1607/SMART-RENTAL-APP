@@ -7,6 +7,7 @@ import {
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
+  
 } from "firebase/auth";
 import { collection, addDoc, doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase.js";
@@ -18,7 +19,7 @@ export const AuthContextProvider = ({ children }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [email, setEmail] = useState("");
 
-  async function addDataToFireStore(name, email, type) {
+  async function addDataToFireStore(name, email, type,password) {
     console.log("email is this in AuthCon", email);
 
     try {
@@ -28,6 +29,7 @@ export const AuthContextProvider = ({ children }) => {
         name: name,
         email: email,
         type: type,
+        password: password,
       });
       console.log("Document written with ID: ", docRef.id);
       return true;
@@ -59,14 +61,18 @@ export const AuthContextProvider = ({ children }) => {
   const googleSignIn = (email, password) => {
     const provider = new GoogleAuthProvider();
 
-    signInWithEmailAndPassword(auth, email, password)
+    const authInstance = getAuth();
+
+    signInWithEmailAndPassword(authInstance, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        // ...
+        console.log("Signed In" , user);
+        
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.log(errorMessage);
       });
   };
 

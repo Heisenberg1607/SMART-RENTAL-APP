@@ -6,9 +6,7 @@ import "./signUp.css"
 
 const page = ({ onSubmit }) => {
 
-  
-
-  const { googleSignIn, createUser, errorMessage, addDataToFireStore } = UserAuth();
+  const {createUser, errorMessage, addDataToFireStore } = UserAuth();
   const [name, setName] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +21,7 @@ const page = ({ onSubmit }) => {
 
     console.log("this is the value in handleSubmit", type);
 
-    const added = addDataToFireStore(name, email, type);
+    const added = addDataToFireStore(name, email, type,password);
 
     console.log("result is: ",added);
 
