@@ -10,9 +10,9 @@ const page = () => {
 
   const { googleSignIn } = UserAuth();
 
-  const handleSubmit = (email, password) => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
     console.log(email, password);
-
     googleSignIn(email, password);
   };
 
@@ -35,7 +35,7 @@ const page = () => {
             setPassword(e.target.value);
           }}
         />
-        <button type="submit">Sign In</button>
+        <button>Sign In</button>
       </form>
     </div>
   );

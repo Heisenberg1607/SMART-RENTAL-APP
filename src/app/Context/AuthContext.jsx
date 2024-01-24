@@ -67,9 +67,11 @@ export const AuthContextProvider = ({ children }) => {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("Signed In" , user);
+        alert("Welcome " + user.email)
         
       })
       .catch((error) => {
+        alert("Wrong Credential")
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
