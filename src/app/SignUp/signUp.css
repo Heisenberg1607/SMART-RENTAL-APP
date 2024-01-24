@@ -25,3 +25,12 @@ button {
 button:hover {
   background-color: #45a049;
 }
+
+.centered-card {
+  max-width: 50%;
+  max-height: 50%;
+  margin-left: 27%;
+  margin-right: 31%;
+  margin-top: 5%;
+  text-align: center;
+}

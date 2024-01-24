@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import { useState, useContext } from "react";
 import { UserAuth } from "../Context/AuthContext";
@@ -9,13 +10,11 @@ const page = () => {
 
   const { googleSignIn } = UserAuth();
 
-  const handleSubmit = (email,password) => {
-    
+  const handleSubmit = (email, password) => {
     console.log(email, password);
 
     googleSignIn(email, password);
-  
-  }
+  };
 
   return (
     <div>
