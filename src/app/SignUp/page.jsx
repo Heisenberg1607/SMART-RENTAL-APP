@@ -97,6 +97,7 @@ import {
   Typography,
   TextField,
   Select,
+  MenuItem,
   FormControlLabel,
   Checkbox,
   Button,
@@ -156,20 +157,9 @@ const page = ({ onSubmit }) => {
               fullWidth
               margin="normal"
             />
-            <Select
-              style={{ marginTop: "10px" }}
-              label="Type Of Customer"
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-              // fullWidth
-              margin="normal"
-            >
-              <option value="Borrower" style={{ cursor: "pointer" }}>
-                Borrower
-              </option>
-              <option value="Owner" style={{ cursor: "pointer" }}>
-                Owner
-              </option>
+            <Select name="" id="" value ={type} onChange={(e) => setType(e.target.value)}>
+              <MenuItem  value="Borrower">Borrower</MenuItem>
+              <MenuItem  value="Owner">Owner</MenuItem>
             </Select>
 
             <TextField
