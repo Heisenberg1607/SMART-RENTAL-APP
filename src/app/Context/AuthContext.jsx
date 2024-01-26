@@ -25,7 +25,7 @@ export const AuthContextProvider = ({ children }) => {
     try {
       console.log("this is type in AuthContext", type);
       console.log("this is type in AuthContext", email);
-      const docRef = await setDoc(doc(collection(db, "user"), email), {
+      const docRef = await setDoc(doc(collection(db, "users"), email), {
         name: name,
         email: email,
         type: type,
