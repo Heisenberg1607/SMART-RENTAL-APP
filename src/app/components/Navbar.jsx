@@ -30,7 +30,7 @@ const Navbar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Smart Rental App Logo
           </Typography>
-          <Link href="/" color="inherit">
+          <Link href="AboutUs" color="inherit">
             <Typography variant="subtitle1" sx={{ ml: 2 }}>
               About Us
             </Typography>
