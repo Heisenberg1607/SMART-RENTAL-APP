@@ -1,9 +1,19 @@
-import React from 'react'
+"use client";
+
+import React from "react";
+import { UserAuth } from "../Context/AuthContext";
 
 const page = () => {
-  return (
-    <div>Owner page</div>
-  )
-}
+  const { loggedUser } = UserAuth();
 
-export default page
+  console.log("from owner page: ",loggedUser);
+  return (
+    <>
+      <div>
+        
+      </div>
+    </>
+  );
+};
+
+export default page;

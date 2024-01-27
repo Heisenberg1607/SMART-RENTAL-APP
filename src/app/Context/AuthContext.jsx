@@ -9,15 +9,23 @@ import {
   onAuthStateChanged,
   
 } from "firebase/auth";
-import { collection, addDoc, doc, setDoc } from "firebase/firestore";
+import { collection, addDoc, doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebase.js";
+import { useRouter } from "next/navigation";
 
 const AuthContext = createContext();
 
+
+
 export const AuthContextProvider = ({ children }) => {
+  const router = useRouter();
   const [user, setUser] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [email, setEmail] = useState("");
+  let loggedUser = { name: "", email: "", password: "", type: "" };
+
+  
+  
 
   async function addDataToFireStore(name, email, type,password) {
     console.log("email is this in AuthCon", email);
@@ -64,10 +72,29 @@ export const AuthContextProvider = ({ children }) => {
     const authInstance = getAuth();
 
     signInWithEmailAndPassword(authInstance, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
+        
         const user = userCredential.user;
         console.log("Signed In" , user);
         alert("Welcome " + user.email)
+        const docRef = doc(db, "users", email);
+        const docSnap = await getDoc(docRef);
+        const docData = docSnap.data();
+        console.log(docData.name);
+        loggedUser = { name: docData.name, email: docData.email, password: docData.password, type: docData.type };
+        console.log("logged in user: ", loggedUser);
+        // setLoggedUser(loggedUser => ({  newData }));
+        // console.log("logged in user: ", loggedUser);
+
+        if (loggedUser.type == "Owner") {
+          sessionStorage.setItem("email", loggedUser.email);
+          sessionStorage.setItem("type", loggedUser.type);
+          router.push("/Owner");
+        } else {
+          sessionStorage.setItem("email", loggedUser.email);
+          sessionStorage.setItem("email", loggedUser.type);
+          router.push("/Borrower");
+        }
         
       })
       .catch((error) => {
@@ -99,12 +126,13 @@ export const AuthContextProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        user,
+        loggedUser,
         googleSignIn,
         logOut,
         createUser,
         errorMessage,
         addDataToFireStore,
+        
       }}
     >
       {children}
