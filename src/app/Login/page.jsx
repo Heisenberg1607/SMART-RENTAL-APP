@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 // import { UserAuth } from "../Context/AuthContext";
 import { useRouter } from "next/navigation";
 import { doc, getDoc } from "firebase/firestore";
@@ -20,27 +20,23 @@ const page = () => {
   const [password, setPassword] = useState("");
   const [type, setType] = useState("");
 
-  const { googleSignIn} = UserAuth();
+  const { googleSignIn, loggedUser } = UserAuth();
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log(email, password);
     googleSignIn(email, password);
-    const docRef = doc(db,"users",email);
-    console.log(docRef);
-    const docSnap = await getDoc(docRef);
-    const docData = docSnap.data();
-    console.log(docData.type);
-    // setType(docData.type);
-    const userType = docData.type;
-    if (userType == "Owner") {
-      router.push("/Owner");
-    } else {
-      router.push("/Borrower");
-    }
 
-
+    
+    
   };
+
+
+  
+
+
+
 
   return (
     <div>
