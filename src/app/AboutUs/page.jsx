@@ -27,9 +27,9 @@ to develop a decentralised rental platform using blockchain and smart contracts.
                             to develop a decentralised rental platform using blockchain and smart
                 contracts.</p>
                   <div class="num-container">
-                      <div class="num-item"><span>1788 <br/>Customers<br/></span></div>
-                      <div class="num-item"><span>99.9% <br/>Successful Rentals<br/></span></div>
-                      <div class="num-item"><span>1000+ <br/>Five Star Reviews<br/></span></div>
+                      <div class="num-item"><span>1000+ <br/>Customers<br/></span></div>
+                      <div class="num-item"><span>99% <br/>Transaction Security<br/></span></div>
+                      <div class="num-item"><span>500+ <br/>Products Available<br/></span></div>
                   </div>
               </section>
 
