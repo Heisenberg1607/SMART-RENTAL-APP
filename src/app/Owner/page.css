@@ -1,0 +1,69 @@
+.owner-page{
+    display: flex;
+    margin-top: 15px;
+
+}
+.left-nav-items{
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+    
+}
+.left-navigation{
+    width: 20%;
+    background-color: gray;
+    height:80vh;
+    border-radius: 20px;
+}
+
+.rent-item-form {
+  width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  height:70vh;
+
+}
+
+.rent-item-form h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.rent-item-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.rent-item-form input[type="text"],
+.rent-item-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.rent-item-form textarea {
+  resize: vertical; /* Allow vertical resizing */
+}
+
+.rent-item-form button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.rent-item-form button[type="submit"]:hover {
+  background-color: #0056b3;
+}

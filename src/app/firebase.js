@@ -2,7 +2,9 @@ import { initializeApp } from "firebase/app";
 
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { isSupported, initializeAnalytics,getAnalytics } from "firebase/analytics";
+import { isSupported, initializeAnalytics, getAnalytics } from "firebase/analytics";
+import { getStorage } from "firebase/storage";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyB6nEX94HF-dz1I-eIHdzcEMBFUh2jRvLI",
@@ -37,4 +39,5 @@ export const auth = getAuth(app);
 
 export const db = getFirestore(app);
 
+export const storage = getStorage(app, "gs://my-custom-bucket");
 

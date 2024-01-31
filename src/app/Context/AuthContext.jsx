@@ -7,15 +7,13 @@ import {
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
-  
+  signOut,
 } from "firebase/auth";
 import { collection, addDoc, doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { useRouter } from "next/navigation";
 
 const AuthContext = createContext();
-
-
 
 export const AuthContextProvider = ({ children }) => {
   const router = useRouter();
@@ -24,10 +22,7 @@ export const AuthContextProvider = ({ children }) => {
   const [email, setEmail] = useState("");
   let loggedUser = { name: "", email: "", password: "", type: "" };
 
-  
-  
-
-  async function addDataToFireStore(name, email, type,password) {
+  async function addDataToFireStore(name, email, type, password) {
     console.log("email is this in AuthCon", email);
 
     try {
@@ -73,15 +68,19 @@ export const AuthContextProvider = ({ children }) => {
 
     signInWithEmailAndPassword(authInstance, email, password)
       .then(async (userCredential) => {
-        
         const user = userCredential.user;
-        console.log("Signed In" , user);
-        alert("Welcome " + user.email)
+        console.log("Signed In", user);
+        alert("Welcome " + user.email);
         const docRef = doc(db, "users", email);
         const docSnap = await getDoc(docRef);
         const docData = docSnap.data();
         console.log(docData.name);
-        loggedUser = { name: docData.name, email: docData.email, password: docData.password, type: docData.type };
+        loggedUser = {
+          name: docData.name,
+          email: docData.email,
+          password: docData.password,
+          type: docData.type,
+        };
         console.log("logged in user: ", loggedUser);
         // setLoggedUser(loggedUser => ({  newData }));
         // console.log("logged in user: ", loggedUser);
@@ -89,16 +88,16 @@ export const AuthContextProvider = ({ children }) => {
         if (loggedUser.type == "Owner") {
           sessionStorage.setItem("email", loggedUser.email);
           sessionStorage.setItem("type", loggedUser.type);
+          location.reload();
           router.push("/Owner");
         } else {
           sessionStorage.setItem("email", loggedUser.email);
           sessionStorage.setItem("email", loggedUser.type);
           router.push("/Borrower");
         }
-        
       })
       .catch((error) => {
-        alert("Wrong Credential")
+        alert("Wrong Credential");
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
@@ -108,12 +107,31 @@ export const AuthContextProvider = ({ children }) => {
   const logOut = () => {
     signOut(auth)
       .then(() => {
-        // Sign-out successful.
+        sessionStorage.removeItem("email");
+        sessionStorage.removeItem("type");
       })
       .catch((error) => {
         // An error happened.
       });
   };
+
+  async function storeItemData(itemName, itemPrice, itemDescribe, email) {
+    
+    try {
+      const docRef = await setDoc(doc(collection(db, `products/${email}/all_products`), itemName), {
+        itemPrice: itemPrice,
+        itemName: itemName,
+        itemDescribe: itemDescribe,
+        email: email,
+      });
+      alert("Product added!");
+      console.log("Document written with ID: ", docRef.id);
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -132,7 +150,7 @@ export const AuthContextProvider = ({ children }) => {
         createUser,
         errorMessage,
         addDataToFireStore,
-        
+        storeItemData,
       }}
     >
       {children}

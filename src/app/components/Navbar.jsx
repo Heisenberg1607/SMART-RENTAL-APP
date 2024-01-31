@@ -10,10 +10,12 @@ import {
   useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import {UserAuth} from "../Context/AuthContext"
 
 const Navbar = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const { logOut } = UserAuth();
 
   return (
     <AppBar position="static" color="primary">
@@ -35,19 +37,29 @@ const Navbar = () => {
               About Us
             </Typography>
           </Link>
-          <Link href="SignUp" color="inherit">
-            <Typography variant="subtitle1" sx={{ ml: 2 }}>
-              Sign Up
-            </Typography>
-          </Link>
-          <Link href="/Login" color="inherit">
-            <Typography variant="subtitle1" sx={{ ml: 2, mr: 2 }}>
-              Login
-            </Typography>
-          </Link>
-          <div>
-            <input type="text" placeholder="Search" />
-          </div>
+
+          {sessionStorage.getItem("email") ? (
+            <Link href="SignUp" color="inherit">
+              <Typography variant="subtitle1" sx={{ ml: 2 }} onClick = {()=>{logOut()}}>
+                Hello, {sessionStorage.getItem("email")}
+              </Typography>
+            </Link>
+          ) : (
+            <div>
+              <Link href="SignUp" color="inherit">
+                <Typography variant="subtitle1" sx={{ ml: 2 }}>
+                  Sign Up
+                </Typography>
+              </Link>
+              <Link href="/Login" color="inherit">
+                <Typography variant="subtitle1" sx={{ ml: 2, mr: 2 }}>
+                  Login
+                </Typography>
+              </Link>
+            </div>
+          )}
+
+          
         </Toolbar>
       </Container>
     </AppBar>
