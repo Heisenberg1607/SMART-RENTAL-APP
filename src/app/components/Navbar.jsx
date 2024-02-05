@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import {UserAuth} from "../Context/AuthContext"
-
+import "../Navbar.css"
 const Navbar = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -32,34 +32,38 @@ const Navbar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Smart Rental App Logo
           </Typography>
-          <Link href="AboutUs" color="inherit">
+          <Link href="AboutUs" color="inherit" className="navbar-link">
             <Typography variant="subtitle1" sx={{ ml: 2 }}>
               About Us
             </Typography>
           </Link>
 
           {sessionStorage.getItem("email") ? (
-            <Link href="SignUp" color="inherit">
-              <Typography variant="subtitle1" sx={{ ml: 2 }} onClick = {()=>{logOut()}}>
+            <Link href="SignUp" color="inherit" className="navbar-link">
+              <Typography
+                variant="subtitle1"
+                sx={{ ml: 2 }}
+                onClick={() => {
+                  logOut();
+                }}
+              >
                 Hello, {sessionStorage.getItem("email")}
               </Typography>
             </Link>
           ) : (
-            <div>
-              <Link href="SignUp" color="inherit">
+            <div className="navbar-btns">
+              <Link href="SignUp" color="inherit" className="navbar-link">
                 <Typography variant="subtitle1" sx={{ ml: 2 }}>
                   Sign Up
                 </Typography>
               </Link>
-              <Link href="/Login" color="inherit">
+              <Link href="/Login" color="inherit" className="navbar-link">
                 <Typography variant="subtitle1" sx={{ ml: 2, mr: 2 }}>
                   Login
                 </Typography>
               </Link>
             </div>
           )}
-
-          
         </Toolbar>
       </Container>
     </AppBar>

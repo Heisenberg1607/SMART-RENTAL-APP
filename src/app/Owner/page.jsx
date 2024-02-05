@@ -3,38 +3,48 @@
 import React, { useEffect, useState } from "react";
 import { UserAuth } from "../Context/AuthContext";
 import "./page.css";
+import { useRouter } from "next/navigation";
 
 const page = () => {
-  
+  const router = useRouter();
   const { loggedUser, logOut, storeItemData } = UserAuth();
   const [itemName, setItemName] = useState();
   const [itemPrice, setItemPrice] = useState();
   const [itemDescribe, setItemDescribe] = useState();
 
   const handleSubmit = (e) => {
-    
     e.preventDefault();
 
     const email = sessionStorage.getItem("email");
     console.log(email);
-    
+
     const dataStore = storeItemData(itemName, itemPrice, itemDescribe, email);
-    
+
     if (dataStore) {
       console.log("done!");
     } else {
       console.log("not done!");
     }
-  } 
-  
+  };
+
+  const goToDashboard = () => {
+    router.push("/Dashboard");
+  };
+
+  const goToOwnerPage = () => {
+    router.push("/Owner");
+  }
+
   // console.log("from owner page: ", loggedUser);
   return (
     <>
       <div className="owner-page">
         <div className="left-navigation">
           <ul className="left-nav-items">
-            <button>Dashboard</button>
-            <button>Give something on rent</button>
+            <button onClick={goToDashboard}>Dashboard</button>
+
+            <button onClick={goToOwnerPage}>Put something for rent</button>
+
             <button
               onClick={() => {
                 logOut();

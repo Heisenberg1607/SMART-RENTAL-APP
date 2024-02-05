@@ -1,0 +1,42 @@
+/* Style for the sign-in page container */
+.sign-in-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  
+}
+
+/* Style for the sign-in header */
+.sign-in-header {
+  margin-bottom: 20px;
+}
+
+/* Style for the input fields */
+.input-username,
+.input-pass {
+  width: 300px; /* Adjust width as needed */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Style for the sign-in button */
+.sign-in-btn {
+  width: 300px; /* Adjust width as needed */
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Style for the sign-in button on hover */
+.sign-in-btn:hover {
+  background-color: #0056b3;
+}

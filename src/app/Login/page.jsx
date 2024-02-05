@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { UserAuth } from "../Context/AuthContext";
+import "./page.css"
 
 
 
@@ -39,11 +40,12 @@ const page = () => {
 
 
   return (
-    <div>
-      <h1>Sign In</h1>
+    <div className="sign-in-page">
+      <h1 className="sign-in-header">Sign In</h1>
 
       <form onSubmit={handleSubmit}>
         <input
+          className="input-username"
           type="email"
           value={email}
           onChange={(e) => {
@@ -51,13 +53,14 @@ const page = () => {
           }}
         />
         <input
+          className="input-pass"
           type="password"
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
           }}
         />
-        <button>Sign In</button>
+        <button className="sign-in-btn">Sign In</button>
       </form>
     </div>
   );

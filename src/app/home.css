@@ -1,0 +1,52 @@
+/* Style for the hero headline */
+
+
+.home-page{
+    background: linear-gradient(to right, #6865F1, #E9499E);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 92vh;
+
+}
+
+.hero-headline {
+  font-size: 2.5rem;
+  /* color: #333; Change color as needed */
+  text-align: center;
+  margin-top: 50px; /* Adjust spacing from the top */
+   /* Smooth transition for color change */
+   opacity: 0; /* Initially hide the headline */
+  animation: fadeIn 1s forwards;
+}
+
+/* Style for the get started button */
+.get-started-btn {
+  display: block;
+  margin: 20px auto; /* Centers the button horizontally */
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  background-color: black; /* Change color as needed */
+  color: #fff; /* Text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition for background color change and button transformation */
+}
+
+.get-started-btn:hover {
+  /* background-color: gray; Darker shade of the original color on hover */
+    border: 2px solid silver;
+    width: 150px;
+  transform: scale(1.05); /* Slight scale increase on hover */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

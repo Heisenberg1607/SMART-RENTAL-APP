@@ -13,3 +13,11 @@
     
 }
 
+.navbar-btns{
+    display:flex;
+    flex-direction: row;
+    
+}
+.navbar-link{
+    text-decoration: none;
+}
