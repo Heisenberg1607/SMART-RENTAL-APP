@@ -12,7 +12,7 @@ const itemCard = () => {
     console.log(email);
     const querySnapshot = await getDocs(
       collection(db, `products/${email}/all_products`)
-    );
+  );
 
     const data = [];
 

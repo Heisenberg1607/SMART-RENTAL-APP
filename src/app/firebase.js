@@ -39,5 +39,5 @@ export const auth = getAuth(app);
 
 export const db = getFirestore(app);
 
-export const storage = getStorage(app, "gs://my-custom-bucket");
+export const storage = getStorage(app);
 

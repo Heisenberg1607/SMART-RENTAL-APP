@@ -4,13 +4,28 @@ import React, { useEffect, useState } from "react";
 import { UserAuth } from "../Context/AuthContext";
 import "./page.css";
 import { useRouter } from "next/navigation";
+import { storage } from "../firebase";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+  uploadString,
+  uploadTaskSnapshot,
+} from "firebase/storage";
+import productData from "../data";
 
 const page = () => {
   const router = useRouter();
   const { loggedUser, logOut, storeItemData } = UserAuth();
+
   const [itemName, setItemName] = useState();
   const [itemPrice, setItemPrice] = useState();
   const [itemDescribe, setItemDescribe] = useState();
+  const [picture, setPicture] = useState([]);
+  const [object, setObject] = useState(productData);
+
+  // console.log(picture);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,7 +40,22 @@ const page = () => {
     } else {
       console.log("not done!");
     }
+
+    // append new data into the array
+    const newObject = {
+      email: email,
+      productName: itemName,
+      productPrice: itemPrice,
+      productDescribe: itemDescribe,
+    };
+
+    setObject((prevState) => [...prevState, newObject]);
+    console.log("this is object: ", object);
   };
+
+  useEffect(() => {
+    console.log("Updated object:", object);
+  }, [object]);
 
   const goToDashboard = () => {
     router.push("/Dashboard");
@@ -33,7 +63,13 @@ const page = () => {
 
   const goToOwnerPage = () => {
     router.push("/Owner");
-  }
+  };
+
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   setImage(file);
+  //   console.log(image);
+  // }
 
   // console.log("from owner page: ", loggedUser);
   return (
@@ -80,7 +116,13 @@ const page = () => {
             />
 
             <label htmlFor="item-image">Item Image</label>
-            <input type="file" name="" id="item-image" />
+            <input
+              type="file"
+              onChange={(e) => {
+                const [file] = e.target.files;
+                setPicture((picture) => [...picture, file]);
+              }}
+            />
 
             <label htmlFor="item-description">Describe your item</label>
             <textarea

@@ -34,6 +34,9 @@ export const AuthContextProvider = ({ children }) => {
         type: type,
         password: password,
       });
+      setDoc(doc(db, `products/${email}`), {
+        id: email,
+      });
       console.log("Document written with ID: ", docRef.id);
       return true;
     } catch (error) {
@@ -116,17 +119,20 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   async function storeItemData(itemName, itemPrice, itemDescribe, email) {
-    
     try {
-      const docRef = await setDoc(doc(collection(db, `products/${email}/all_products`), itemName), {
-        itemPrice: itemPrice,
-        itemName: itemName,
-        itemDescribe: itemDescribe,
-        email: email,
+      const docRef = setDoc(
+        doc(collection(db, `products/${email}/all_products`), itemName),
+        {
+          itemPrice: itemPrice,
+          itemName: itemName,
+          itemDescribe: itemDescribe,
+          email: email,
+        }
+      ).then(() => {
+        alert("Product added!");
+        console.log("Document written with ID: ", docRef.id);
+        return true;
       });
-      alert("Product added!");
-      console.log("Document written with ID: ", docRef.id);
-      return true;
     } catch (error) {
       console.log(error);
       return false;

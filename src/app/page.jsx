@@ -10,8 +10,8 @@ export default function Home() {
 
   const router = useRouter();
 
-  const goToSignUp = () => {
-    router.push("/SignUp");
+  const goToBorrower = () => {
+    router.push("/Borrower");
   }
 
   return (
@@ -19,7 +19,7 @@ export default function Home() {
       <div className="home-page">
         <h1 className="hero-headline text-black">Smart Rental App</h1>
 
-        <button className="get-started-btn" onClick={goToSignUp}> Get Started</button>
+        <button className="get-started-btn" onClick={goToBorrower}> Get Started</button>
       </div>
     </>
   );
