@@ -7,7 +7,7 @@ import { collection, getDocs, onSnapshot } from "firebase/firestore";
 
 const page = () => {
   const [data, setData] = useState([]);
-  // useEffect(() => {
+  // useEffect(() => { 
   //   const colRef = collection(db, "products");
   //   console.log("colRef: ", colRef);
   //   const docs = getDocs(colRef);
