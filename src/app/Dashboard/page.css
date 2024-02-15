@@ -24,13 +24,13 @@
   text-align: center;
 }
 
-.sub-header{ 
-    font-size:19px;
-    margin-left: 50px ;
+.sub-header {
+  font-size: 19px;
+  margin-left: 50px;
 }
 
 .item-cards {
-margin: 50px 0px 0px 50px;
+  margin: 50px 0px 0px 50px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
@@ -49,4 +49,13 @@ margin: 50px 0px 0px 50px;
 .item-card p:first-child {
   font-weight: bold;
   margin-bottom: 10px;
+}
+
+.edit-btn {
+  background-color: #0A66C2;
+  color: white;
+  width: 80px;
+  padding: 5px 10px;
+  border: 1.5px solid black;
+  margin-top:10px;
 }

@@ -3,18 +3,7 @@
     margin-top: 15px;
 
 }
-.left-nav-items{
-    display: flex;
-    flex-direction: column;
-    align-items: space-around;
-    
-}
-.left-navigation{
-    width: 20%;
-    background-color: gray;
-    height:80vh;
-    border-radius: 20px;
-}
+
 
 .rent-item-form {
   width: 400px;
@@ -66,4 +55,30 @@
 
 .rent-item-form button[type="submit"]:hover {
   background-color: #0056b3;
+}
+
+.left-navigation {
+  width: 200px; /* Adjust width as needed */
+  margin-left:20px;
+  margin-top:40px
+  
+}
+
+.left-nav-items {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.left-nav-items button {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: none;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.left-nav-items button:hover {
+  background-color: #e0e0e0;
 }

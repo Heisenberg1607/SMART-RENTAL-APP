@@ -2,25 +2,40 @@
 import React, { useEffect, useState } from "react";
 import "./page.css";
 import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
+import { formControlClasses } from "@mui/material";
 
 const itemCard = () => {
   const [userData, setUserData] = useState([]);
 
   async function fetchDataFromFireStore() {
     const email = sessionStorage.getItem("email");
-    console.log(email);
-    const querySnapshot = await getDocs(
-      collection(db, `products/${email}/all_products`)
-  );
+    // console.log(email);
+    // const querySnapshot = await getDocs(
+    //   collection(db, `products/${email}/all_products`)
+
+    const colRef = collection(db, "products");
+    console.log(colRef);
+    const q = await query(colRef, where("email", "==", email));
+
+    console.log(q);
 
     const data = [];
-
-    querySnapshot.forEach((doc) => {
-      data.push({ id: doc.id, ...doc.data() });
+    const query_docs = onSnapshot(q, (querySnapshot) => {
+      querySnapshot.docs.forEach((doc) => {
+        data.push({ ...doc.data(), id: doc.id });
+      });
+      console.log("this is query data: ", data);
+      setUserData(data);
     });
 
-    console.log(data);
+    // console.log(query_docs);
 
     return data;
   }
@@ -28,7 +43,7 @@ const itemCard = () => {
   useEffect(() => {
     async function dataFetch() {
       const data = await fetchDataFromFireStore();
-      setUserData(data);
+      console.log("data in dataFetch: ", data);
     }
 
     dataFetch();
@@ -44,9 +59,12 @@ const itemCard = () => {
         <div className="item-cards">
           {userData.map((user) => (
             <div key={user.id} className="item-card">
-              <p>Item Name: {user.itemName}</p>
-              <p>Item Price: {user.itemPrice}</p>
-              <p>Item Description: {user.itemDescribe}</p>
+              <div>
+                <p>Item-Name: {user.itemName}</p>
+                <p>Item-Price: {user.itemPrice}</p>
+                <p>Item-Description: {user.itemDescribe}</p>
+              </div>
+              <button className="edit-btn">Edit</button>
             </div>
           ))}
         </div>

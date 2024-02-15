@@ -2,12 +2,13 @@
 import React, { useEffect, useState } from "react";
 // import productData from "../data";
 import { db } from "../firebase";
-import { collection, getDocs, onSnapshot } from "firebase/firestore";
+import { collection, query, onSnapshot, getDoc } from "firebase/firestore";
+import "./page.css";
 // import { getDatabase, ref, onValue } from "firebase/database";
 
 const page = () => {
-  const [data, setData] = useState([]);
-  // useEffect(() => { 
+  const [items, setData] = useState([]);
+  // useEffect(() => {
   //   const colRef = collection(db, "products");
   //   console.log("colRef: ", colRef);
   //   const docs = getDocs(colRef);
@@ -28,39 +29,40 @@ const page = () => {
   // }, []);
 
   useEffect(() => {
-    console.log("Inside useEffect");
-    const colRef = collection(db, "products");
-    const product_data = [];
-    onSnapshot(colRef, (docs) => {
-      docs.docs.forEach((doc) => {
-        const colRef1 = collection(db, `products/${doc.id}/all_products`);
-        onSnapshot(colRef1, (docs1) => {
-          docs1.docs.forEach((doc1) => {
-            // console.log(
-            //   "Product: ",
-            //   doc1.data().itemName,
-            //   doc1.data().itemDescribe
-            // );
-            product_data.push(doc1.data());
-          });
-          console.log("this is product data", product_data);
-          setData(product_data);
-        });
-      });
+    const colRef =  query(collection(db, "products"));
+    let product_data = [];
+    const q =  onSnapshot(colRef,(querySnapshot) =>{
+    querySnapshot.forEach( (doc) => {
+      product_data.push({ ...doc.data(),id: doc.id});
     });
+    setData(product_data);
+    });      
   }, []);
 
-  if (data.length > 0 && data[0]) {
-    console.log("First item name:", data);
-  } else {
-    console.log("No items available");
-  }
+
+const handleClick = () => {
+  const email = sessionStorage.getItem("email");
+  const colRef = getDoc(db, `user/${email}`);
+
+  console.log(colRef);
+
+
+};
+
   return (
     <div>
-      <h1>Hey User</h1>
-      <ul>
-        {data.length > 0 ? (
-          data.map((item, index) => <li key={index}>{item.itemName}</li>)
+      <h1 className="user-header">Hey User</h1>
+      <ul className="all-products-borrower">
+        {items.length > 0 ? (
+          items.map((item) => (
+            <li key={item.id}>
+              <p className="email">Owner: {item.email}</p>
+              <p className=" item-name">Product-Name: {item.itemName}</p>
+              <p className="item-price">Product-Price: {item.itemPrice}</p>
+              <p className="item-price">Product-Description: {item.itemDescribe}</p>
+              <button className="rent-button" onClick={handleClick}>Rent this Product</button>
+            </li>
+          ))
         ) : (
           <h1>Data not fetched</h1>
         )}

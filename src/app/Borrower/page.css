@@ -1,0 +1,66 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container styles */
+div {
+  margin: 20px;
+}
+
+/* Header styles */
+.user-header {
+  color: #333;
+}
+
+/* List styles */
+.all-products-borrower {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* List item styles */
+.all-products-borrower li {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+}
+
+/* Paragraph styles */
+.all-products-borrower li p {
+  margin: 0;
+}
+
+/* Email paragraph styles */
+.email {
+  font-weight: bold;
+  color: #007bff; /* Blue color for email */
+}
+
+/* Item name paragraph styles */
+.item-name {
+  font-weight: bold;
+}
+
+/* Item price paragraph styles */
+.item-price {
+  color: #28a745; /* Green color for item price */
+}
+
+/* Item description paragraph styles */
+.item-describe {
+  color: #6c757d; /* Gray color for item description */
+}
+
+.rent-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin-top: 10px;
+  cursor: pointer;
+}
