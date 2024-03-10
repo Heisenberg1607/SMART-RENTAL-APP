@@ -16,12 +16,10 @@ input {
 
 button {
   padding: 10px;
-  background-color: #4caf50;
   color: white;
   border: none;
   cursor: pointer;
 }
-
 
 .centered-card {
   max-width: 50%;

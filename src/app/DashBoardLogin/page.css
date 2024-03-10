@@ -1,0 +1,32 @@
+form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: 20px;
+}
+
+label {
+  margin-bottom: 10px;
+}
+
+input {
+  padding: 8px;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 10px;
+
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.centered-card {
+  max-width: 50%;
+  max-height: 50%;
+  margin-left: 27%;
+  margin-right: 31%;
+  margin-top: 5%;
+  text-align: center;
+}

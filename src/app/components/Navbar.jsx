@@ -10,12 +10,20 @@ import {
   useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import {UserAuth} from "../Context/AuthContext"
-import "../Navbar.css"
+import { UserAuth } from "../Context/AuthContext";
+import "../Navbar.css";
+import { useRouter } from "next/navigation";
+
 const Navbar = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const { logOut } = UserAuth();
+
+  const router = useRouter();
+
+  function goToHomeage() {
+    router.push("/");
+  }
 
   return (
     <AppBar position="static" color="primary">
@@ -29,9 +37,12 @@ const Navbar = () => {
           >
             <MenuIcon />
           </IconButton>
+
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Smart Rental App Logo
+            {/* Smart Rental App Logo */}
+            <button onClick={goToHomeage}>Smart Rental App Logo</button>
           </Typography>
+
           <Link href="AboutUs" color="inherit" className="navbar-link">
             <Typography variant="subtitle1" sx={{ ml: 2 }}>
               About Us
