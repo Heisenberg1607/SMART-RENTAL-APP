@@ -1,20 +1,10 @@
 "use client";
 import Head from "next/head";
 import "./home.css";
-import { useRouter } from "next/navigation";
+import Button from "./components/Button";
 // import "./globals.css"
 
 export default function Home() {
-  const router = useRouter();
-
-  const goToBorrower = () => {
-    router.push("/Borrower");
-  };
-
-  function gotToDashBoardLogin() {
-    router.push("./DashBoardLogin");
-  }
-
   return (
     <>
       <div className="home-page">
@@ -22,14 +12,10 @@ export default function Home() {
 
         <div style={{ display: "flex", gap: "10px" }}>
           <span>
-            <button className="get-started-btn" onClick={goToBorrower}>
-              Get Started
-            </button>
+            <Button destination={"./Borrower"}>Get Started</Button>
           </span>
           <span>
-            <button className="get-started-btn" onClick={gotToDashBoardLogin}>
-              Go To Dashboard
-            </button>
+            <Button destination={"./DashBoardLogin"}>Go To Dashboard</Button>
           </span>
         </div>
       </div>
