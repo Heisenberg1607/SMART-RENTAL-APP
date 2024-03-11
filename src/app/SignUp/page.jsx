@@ -82,11 +82,11 @@
 //     </>
 //   );
 // };
-
 // export default page;
 
 "use client";
 import React from "react";
+// import { SignUpProvider, useSignUp } from "../Context/SignupContext";
 import { useState } from "react";
 import { UserAuth } from "../Context/AuthContext";
 import {
@@ -103,10 +103,25 @@ import {
   Button,
 } from "@mui/material";
 import "./signUp.css";
-import { CheckBox } from "@mui/icons-material";
+// import { CheckBox } from "@mui/icons-material";
 
 const page = ({ onSubmit }) => {
   const { createUser, errorMessage, addDataToFireStore } = UserAuth();
+
+  // const {
+  //   name,
+  //   email,
+  //   password,
+  //   type,
+  //   handleSubmit,
+  //   setEmail,
+  //   setPassword,
+  //   setType,
+  //   setName,
+  //   errorMessage,
+  //   handleSetType,
+  // } = useSignUp();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -157,9 +172,14 @@ const page = ({ onSubmit }) => {
               fullWidth
               margin="normal"
             />
-            <Select name="" id="" value ={type} onChange={(e) => setType(e.target.value)}>
-              <MenuItem  value="Borrower">Borrower</MenuItem>
-              <MenuItem  value="Owner">Owner</MenuItem>
+            <Select
+              name=""
+              id=""
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+            >
+              <MenuItem value="Borrower">Borrower</MenuItem>
+              <MenuItem value="Owner">Owner</MenuItem>
             </Select>
 
             <TextField
@@ -194,4 +214,3 @@ const page = ({ onSubmit }) => {
 };
 
 export default page;
-// Tanish
