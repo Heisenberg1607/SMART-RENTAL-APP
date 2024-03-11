@@ -1,11 +1,12 @@
-'use client'
+"use client";
 // import './globals.css'
-import Navbar from "./components/Navbar.jsx"
+import Navbar from "./components/Navbar.jsx";
 import { Inter } from "next/font/google";
-import { AuthContextProvider } from './Context/AuthContext.jsx'
-import "./globals.css"
+import { AuthContextProvider } from "./Context/AuthContext.jsx";
+import "./globals.css";
+import { SignUpProvider } from "./Context/SignupContext.jsx";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata = {
 //   title: 'Create Next App',
@@ -17,8 +18,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <AuthContextProvider>
-          <Navbar />
-          {children}
+          <SignUpProvider>
+            <Navbar />
+            {children}
+          </SignUpProvider>
         </AuthContextProvider>
       </body>
     </html>

@@ -86,9 +86,7 @@
 
 "use client";
 import React from "react";
-// import { SignUpProvider, useSignUp } from "../Context/SignupContext";
-import { useState } from "react";
-import { UserAuth } from "../Context/AuthContext";
+import { useSignUp } from "../Context/SignupContext";
 import {
   Card,
   CardContent,
@@ -105,54 +103,19 @@ import {
 import "./signUp.css";
 // import { CheckBox } from "@mui/icons-material";
 
-const page = ({ onSubmit }) => {
-  const { createUser, errorMessage, addDataToFireStore } = UserAuth();
-
-  // const {
-  //   name,
-  //   email,
-  //   password,
-  //   type,
-  //   handleSubmit,
-  //   setEmail,
-  //   setPassword,
-  //   setType,
-  //   setName,
-  //   errorMessage,
-  //   handleSetType,
-  // } = useSignUp();
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [type, setType] = useState("");
-
-  console.log("this is the value in state", type);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    createUser(email, password);
-
-    console.log("this is the value in handleSubmit", type);
-
-    const added = addDataToFireStore(name, email, type, password);
-
-    console.log("result is: ", added);
-
-    if (added) {
-      setName("");
-      setEmail("");
-      setType("");
-
-      alert("Account Created");
-    }
-    console.log(email, password);
-    // googleSignIn(email, password);
-
-    // function handleSelect(e) {
-    //   (e) => setType(e.target.value);
-    // }
-  };
+const page = () => {
+  const {
+    name,
+    email,
+    password,
+    type,
+    handleSetEmail,
+    handleSetPassword,
+    handleSetName,
+    handleSetType,
+    handleSubmit,
+    errorMessage,
+  } = useSignUp();
 
   return (
     <Card className="centered-card">
@@ -168,16 +131,11 @@ const page = ({ onSubmit }) => {
             <TextField
               label="Name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={handleSetName}
               fullWidth
               margin="normal"
             />
-            <Select
-              name=""
-              id=""
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-            >
+            <Select name="" id="" value={type} onChange={handleSetType}>
               <MenuItem value="Borrower">Borrower</MenuItem>
               <MenuItem value="Owner">Owner</MenuItem>
             </Select>
@@ -186,7 +144,7 @@ const page = ({ onSubmit }) => {
               label="Email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleSetEmail}
               fullWidth
               margin="normal"
             />
@@ -194,7 +152,7 @@ const page = ({ onSubmit }) => {
               label="Password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleSetPassword}
               fullWidth
               margin="normal"
             />
