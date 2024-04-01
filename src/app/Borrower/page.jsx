@@ -29,40 +29,29 @@ const page = () => {
   // }, []);
 
   useEffect(() => {
-    const colRef =  query(collection(db, "products"));
+    const colRef = query(collection(db, "products"));
     let product_data = [];
-    const q =  onSnapshot(colRef,(querySnapshot) =>{
-    querySnapshot.forEach( (doc) => {
-      product_data.push({ ...doc.data(),id: doc.id});
+    const q = onSnapshot(colRef, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        product_data.push({ ...doc.data(), id: doc.id });
+      });
+      setData(product_data);
     });
-    setData(product_data);
-    });      
   }, []);
 
+  const handleClick = () => {
+    const email = sessionStorage.getItem("email");
+    const colRef = getDoc(db, `user/${email}`);
 
-const handleClick = () => {
-  const email = sessionStorage.getItem("email");
-  const colRef = getDoc(db, `user/${email}`);
-
-  console.log(colRef);
-
-
-};
+    console.log(colRef);
+  };
 
   return (
-    <div>
+    <div className="p-5 bg-stone-50">
       <h1 className="user-header">Hey User</h1>
-      <ul className="all-products-borrower">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
         {items.length > 0 ? (
-          items.map((item) => (
-            <li key={item.id}>
-              <p className="email">Owner: {item.email}</p>
-              <p className=" item-name">Product-Name: {item.itemName}</p>
-              <p className="item-price">Product-Price: {item.itemPrice}</p>
-              <p className="item-price">Product-Description: {item.itemDescribe}</p>
-              <button className="rent-button" onClick={handleClick}>Rent this Product</button>
-            </li>
-          ))
+          items.map((item) => <Item item={item} handleClick={handleClick} />)
         ) : (
           <h1>Data not fetched</h1>
         )}
@@ -70,5 +59,28 @@ const handleClick = () => {
     </div>
   );
 };
+
+function Item({ item, handleClick }) {
+  return (
+    <li
+      key={item.id}
+      className="flex gap-1 text-center justify-center items-center flex-col p-3"
+    >
+      <div className="rounded-lg overflow-hidden shadow-md bg-white p-3 md:w-80 w-64">
+        <p className="email">Owner: {item.email}</p>
+        <p className=" item-name">Product-Name: {item.itemName}</p>
+        <p className="item-price">Product-Price: {item.itemPrice}</p>
+        <p className="item-price">Product-Description: {item.itemDescribe}</p>
+
+        <button
+          className="text-sm border-2 border-blue-200 bg-blue-400 rounded-full p-2 text-stone-800 font-semibold w-40 hover:w-48 transition-all duration-300 hover:text-stone-50"
+          onClick={handleClick}
+        >
+          Rent this Product
+        </button>
+      </div>
+    </li>
+  );
+}
 
 export default page;
