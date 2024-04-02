@@ -8,10 +8,16 @@ export function SignUpProvider({ children }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("");
+  const [userName, setUserName] = useState("");
 
   const { createUser, errorMessage, addDataToFireStore } = UserAuth();
 
   console.log("this is the value in state", type);
+
+  function handleUserName(e) {
+    e.preventDefault();
+    setUserName(e.target.value);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,6 +65,8 @@ export function SignUpProvider({ children }) {
         handleSetType,
         handleSubmit,
         errorMessage,
+        userName,
+        handleUserName,
       }}
     >
       {children}

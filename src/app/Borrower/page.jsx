@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { collection, query, onSnapshot, getDoc } from "firebase/firestore";
 import "./page.css";
+import { useSignUp } from "../Context/SignupContext";
 // import { getDatabase, ref, onValue } from "firebase/database";
 
 const page = () => {
@@ -28,6 +29,8 @@ const page = () => {
   //   });
   // }, []);
 
+  const { userName } = useSignUp();
+
   useEffect(() => {
     const colRef = query(collection(db, "products"));
     let product_data = [];
@@ -48,7 +51,7 @@ const page = () => {
 
   return (
     <div className="p-5 bg-stone-50">
-      <h1 className="user-header">Hey User</h1>
+      <h1 className="user-header">Hello, {userName}</h1>
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
         {items.length > 0 ? (
           items.map((item) => <Item item={item} handleClick={handleClick} />)

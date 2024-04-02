@@ -14,11 +14,14 @@ import {
   Button,
 } from "@mui/material";
 import "./page.css";
+import { useSignUp } from "../Context/SignupContext";
 
 const page = () => {
   const router = useRouter();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+
+  const { userName } = useSignUp();
 
   function gotToDashBoard() {
     router.push("./Dashboard");
@@ -64,6 +67,7 @@ const page = () => {
             <TextField
               label="Name"
               value={name}
+              default={userName}
               onChange={(e) => setName(e.target.value)}
               fullWidth
               margin="normal"
