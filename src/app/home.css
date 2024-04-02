@@ -1,14 +1,12 @@
 /* Style for the hero headline */
 
-
-.home-page{
-    background: linear-gradient(to right, #6865F1, #E9499E);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 92vh;
-
+.home-page {
+  background: linear-gradient(to right, #6865f1, #e9499e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 92vh;
 }
 
 .hero-headline {
@@ -16,8 +14,8 @@
   /* color: #333; Change color as needed */
   text-align: center;
   margin-top: 50px; /* Adjust spacing from the top */
-   /* Smooth transition for color change */
-   opacity: 0; /* Initially hide the headline */
+  /* Smooth transition for color change */
+  opacity: 0; /* Initially hide the headline */
   animation: fadeIn 1s forwards;
 }
 
@@ -37,8 +35,8 @@
 
 .get-started-btn:hover {
   /* background-color: gray; Darker shade of the original color on hover */
-    border: 2px solid silver;
-    width: 150px;
+  border: 2px solid silver;
+  width: 150px;
   transform: scale(1.05); /* Slight scale increase on hover */
 }
 
