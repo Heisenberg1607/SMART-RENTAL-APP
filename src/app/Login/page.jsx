@@ -23,57 +23,49 @@ const page = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(email, password);
-    const demo = googleSignIn(email, password);
-    console.log(demo);
+    googleSignIn(email, password);
   };
 
-  function gotToDashBoardLogin() {
+  const handleAdmin = () => {
+    // e.preventDefault();
     router.push("./DashBoardLogin");
   }
 
   return (
-    <>
-      <div className="admin-login">
-      <button className="admin-login-btn" onClick={gotToDashBoardLogin}>
-        Admin Login
-      </button>
-      </div>
-      <div className="sign-in-page">
-        <h1 className="sign-in-header">Sign In</h1>
-        <hr className="line-sign-in" />
+    <div className="text-center bg-slate-100 m-12 mt-28 p-8 rounded-md">
+      <h1 className="text-stone-600 font-bold mt-10 tracking-widest font-mono capitalize text-xl">
+        Login to your account below
+      </h1>
 
-        <form onSubmit={handleSubmit} className="form-sign-in">
+      <form onSubmit={handleSubmit} className="space-x-2 mt-10">
+        <div className="mb-6 flex flex-col items-center justify-center gap-4">
           <input
-            className="input-username"
+            className="border border-stone-300 rounded-lg w-56 placeholder:text-sm placeholder:text-stone-400 p-1"
             type="email"
             value={email}
+            placeholder="Enter Your Email..."
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-            placeholder="Enter email"
           />
           <input
-            className="input-pass"
+            className="border rounded-lg border-stone-300 w-56 placeholder:text-sm placeholder:text-stone-400 p-1 transition-all duration-300"
             type="password"
+            placeholder="Enter Your Password..."
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
             }}
-            placeholder="Enter Password"
           />
-          <button className="sign-in-btn">Sign In</button>
-        </form>
-      </div>
-    </>
+        </div>
+        <button className="border-1 p-2 bg-blue-500 text-stone-900 font-semibold text-sm hover:bg-blue-400 hover:font-medium transition-all duration-300 hover:text-stone-800 w-28 hover:w-36 rounded-xl">
+          Login
+        </button>
+        
+        <p onClick={handleAdmin} className="mt-5 text-gray-500">Admin? Log in here.</p>  
+      </form>
+    </div>
   );
 };
 
 export default page;
-
-{
-  /* <span>
-  <button className="get-started-btn" onClick={gotToDashBoardLogin}>
-    Go To Dashboard
-  </button>
-</span>; */
-}

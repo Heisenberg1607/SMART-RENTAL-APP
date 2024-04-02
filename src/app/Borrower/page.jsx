@@ -4,59 +4,70 @@ import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { collection, query, onSnapshot, getDoc } from "firebase/firestore";
 import "./page.css";
-import { useSignUp } from "../Context/SignupContext";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+// import SelectedProduct from "../SelectedProduct"
 // import { getDatabase, ref, onValue } from "firebase/database";
 
 const page = () => {
+  const router = useRouter();
   const [items, setData] = useState([]);
-  // useEffect(() => {
-  //   const colRef = collection(db, "products");
-  //   console.log("colRef: ", colRef);
-  //   const docs = getDocs(colRef);
-  //   console.log("this is docs: ", colRef);
-  //   getDocs(colRef).then((docs) => {
-  //     docs.forEach((docs) => {
-  //       const colRef1 = collection(`products /${docs.id}/all_products`);
-  //       console.log("this is inside colRef 1: ", colRef1);
-  //       getDocs(colRef1).then((docs1) => {
-  //         let arr = [];
-  //         docs1.forEach((docs1) => {
-  //           arr.push(docs1.data());
-  //         });
-  //         console.log("this is inside array", arr);
-  //       });
-  //     });
-  //   });
-  // }, []);
-
-  const { userName } = useSignUp();
-
   useEffect(() => {
     const colRef = query(collection(db, "products"));
     let product_data = [];
+
     const q = onSnapshot(colRef, (querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        product_data.push({ ...doc.data(), id: doc.id });
+        const data = doc.data();
+        if (data.approved) {
+          product_data.push({ ...doc.data(), id: doc.id });
+        }
       });
       setData(product_data);
     });
+
+    console.log("product data is", product_data);
   }, []);
 
-  const handleClick = () => {
+  const handleClick = (itemId) => {
     const email = sessionStorage.getItem("email");
-    const colRef = getDoc(db, `user/${email}`);
+    console.log(itemId);
+    if (email) {
+      console.log("this is email", email);
 
-    console.log(colRef);
+      // openProduct();
+    } else {
+      router.push("/Login");
+    }
   };
 
   return (
     <div className="p-5 bg-stone-50">
-      <h1 className="text-lg font-semibold text-center font-mono">
+      {/* <h1 className="text-lg font-semibold text-center font-mono">
         Hello, {userName}
-      </h1>
+      </h1> */}
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
         {items.length > 0 ? (
-          items.map((item) => <Item item={item} handleClick={handleClick} />)
+          items.map((item) => (
+            <li key={item.id}>
+              <p className="email">Owner: {item.email}</p>
+              <p className=" item-name">Product-Name: {item.itemName}</p>
+              <p className="item-price">Product-Price: {item.itemPrice}</p>
+              <p className="item-price">
+                Product-Description: {item.itemDescribe}
+              </p>
+              <p>{item.id}</p>
+              <Link
+                href={{
+                  pathname: "/SelectedProduct",
+                  query: { id: `${item.id}` },
+                }}
+                className="rent-button"
+              >
+                demo
+              </Link>
+            </li>
+          ))
         ) : (
           <h1>Data not fetched</h1>
         )}
