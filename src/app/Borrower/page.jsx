@@ -64,9 +64,9 @@ function Item({ item, handleClick }) {
   return (
     <li
       key={item.id}
-      className="flex gap-1 text-center justify-center items-center flex-col p-3"
+      className="flex flex-col gap-1 text-center justify-center items-center p-3"
     >
-      <div className="rounded-lg overflow-hidden shadow-md bg-white p-3 md:w-80 w-64">
+      <div className="rounded-lg overflow-hidden shadow-md bg-white md:w-80 w-64 p-8">
         <p className="email">Owner: {item.email}</p>
         <p className=" item-name">Product-Name: {item.itemName}</p>
         <p className="item-price">Product-Price: {item.itemPrice}</p>
