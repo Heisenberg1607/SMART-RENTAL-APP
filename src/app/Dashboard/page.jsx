@@ -8,46 +8,37 @@ import {
   onSnapshot,
   query,
   where,
+  doc,
+  updateDoc
 } from "firebase/firestore";
+import Link from "next/link";
 import { formControlClasses } from "@mui/material";
+import "./page.css";
 
 const itemCard = () => {
-  const [userData, setUserData] = useState([]);
-
-  async function fetchDataFromFireStore() {
-    const email = sessionStorage.getItem("email");
-    // console.log(email);
-    // const querySnapshot = await getDocs(
-    //   collection(db, `products/${email}/all_products`)
-
-    const colRef = collection(db, "products");
-    console.log(colRef);
-    const q = await query(colRef, where("email", "==", email));
-
-    console.log(q);
-
-    const data = [];
-    const query_docs = onSnapshot(q, (querySnapshot) => {
-      querySnapshot.docs.forEach((doc) => {
-        data.push({ ...doc.data(), id: doc.id });
-      });
-      console.log("this is query data: ", data);
-      setUserData(data);
-    });
-
-    // console.log(query_docs);
-
-    return data;
-  }
-
+  const [items, setData] = useState([]);
   useEffect(() => {
-    async function dataFetch() {
-      const data = await fetchDataFromFireStore();
-      console.log("data in dataFetch: ", data);
-    }
-
-    dataFetch();
+    const colRef = query(collection(db, "products"));
+    console.log(colRef);
+    let product_data = [];
+    const q = onSnapshot(colRef, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        console.log(doc.data());
+        product_data.push({ ...doc.data(), id: doc.id });
+      });
+      console.log(product_data);
+      setData(product_data);
+    });
   }, []);
+
+const handleApprove = (id) => {
+  const docRef = doc(db, "products", id);
+  console.log(docRef);
+
+  updateDoc(docRef, {
+    approved: true,
+  });
+};
 
   return (
     <>
@@ -56,18 +47,39 @@ const itemCard = () => {
         <h1 className="sub-header">Products which are for sale</h1>
         {/* <button onClick={fetchDataFromFireStore}>get data</button> */}
 
-        <div className="item-cards">
-          {userData.map((user) => (
-            <div key={user.id} className="item-card">
-              <div>
-                <p>Item-Name: {user.itemName}</p>
-                <p>Item-Price: {user.itemPrice}</p>
-                <p>Item-Description: {user.itemDescribe}</p>
-              </div>
-              <button className="edit-btn">Edit</button>
-            </div>
-          ))}
-        </div>
+        <ul className="all-products-borrower">
+          {items.length > 0 ? (
+            items.map((item) => (
+              <li key={item.id}>
+                <p className="email">Owner: {item.email}</p>
+                <p className=" item-name">Product-Name: {item.itemName}</p>
+                <p className="item-price">Product-Price: {item.itemPrice}</p>
+                <p className="item-price">
+                  Product-Description: {item.itemDescribe}
+                </p>
+                <p>{item.id}</p>
+                <button
+                  className="approve-button"
+                  onClick={() => handleApprove(item.id)}
+                >
+                  Approve
+                </button>
+
+                <Link
+                  href={{
+                    pathname: "/SelectedProduct",
+                    query: { id: `${item.id}` },
+                  }}
+                  className="reject-button"
+                >
+                  Reject
+                </Link>
+              </li>
+            ))
+          ) : (
+            <h1>Data not fetched</h1>
+          )}
+        </ul>
       </div>
     </>
   );

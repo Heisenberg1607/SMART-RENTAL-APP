@@ -5,12 +5,12 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  
 }
 
 /* Style for the sign-in header */
 .sign-in-header {
   margin-bottom: 20px;
+  font-size: 40px;
 }
 
 /* Style for the input fields */
@@ -39,4 +39,23 @@
 /* Style for the sign-in button on hover */
 .sign-in-btn:hover {
   background-color: #0056b3;
+}
+
+.form-sign-in {
+  display: flex;
+  flex-direction: column;
+}
+
+.line-sign-in {
+}
+
+.admin-login-btn {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 10px;
+  border-radius: 10px;
+  position: absolute;
+  right: 0;
+  margin: 10px;
 }

@@ -95,7 +95,7 @@ export const AuthContextProvider = ({ children }) => {
           router.push("/Owner");
         } else {
           sessionStorage.setItem("email", loggedUser.email);
-          sessionStorage.setItem("email", loggedUser.type);
+          sessionStorage.setItem("type", loggedUser.type);
           router.push("/Borrower");
         }
       })
@@ -121,12 +121,13 @@ export const AuthContextProvider = ({ children }) => {
   async function storeItemData(itemName, itemPrice, itemDescribe, email) {
     try {
       const docRef = setDoc(
-        doc(collection(db, `products/${email}/all_products`), itemName),
+        doc(collection(db, `products`)),
         {
           itemPrice: itemPrice,
           itemName: itemName,
           itemDescribe: itemDescribe,
           email: email,
+          approved: false,
         }
       ).then(() => {
         alert("Product added!");
