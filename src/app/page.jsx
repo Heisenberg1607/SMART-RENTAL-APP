@@ -15,8 +15,11 @@ export default function Home() {
           Smart Rental Application.Co
         </h1>
 
-        <form onSubmit={() => setName("")} className="flex-col text-center">
-          <h1 className="font-semibold text-stone-800 text-2xl mb-1 tracking-wide">
+        <form
+          onSubmit={() => setName("")}
+          className="flex-col text-center mb-4"
+        >
+          <h1 className="font-semibold text-stone-800 text-2xl mb-2 tracking-wide ">
             Welcome to our App!
           </h1>
           <input
@@ -29,7 +32,7 @@ export default function Home() {
         </form>
 
         {userName ? (
-          <div className="flex gap-4">
+          <div className="flex space-x-4">
             <span>
               <Button destination={"./Borrower"}>Get Started</Button>
             </span>

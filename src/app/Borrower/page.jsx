@@ -51,7 +51,9 @@ const page = () => {
 
   return (
     <div className="p-5 bg-stone-50">
-      <h1 className="user-header">Hello, {userName}</h1>
+      <h1 className="text-lg font-semibold text-center font-mono">
+        Hello, {userName}
+      </h1>
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
         {items.length > 0 ? (
           items.map((item) => <Item item={item} handleClick={handleClick} />)

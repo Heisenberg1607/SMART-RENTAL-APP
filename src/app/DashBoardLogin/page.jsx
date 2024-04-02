@@ -67,7 +67,7 @@ const page = () => {
             <TextField
               label="Name"
               value={name}
-              default={userName}
+              defaultValue={userName}
               onChange={(e) => setName(e.target.value)}
               fullWidth
               margin="normal"
