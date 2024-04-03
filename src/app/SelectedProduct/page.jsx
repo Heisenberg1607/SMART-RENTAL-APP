@@ -50,7 +50,7 @@ const page = () => {
   }
 
   return (
-    <div>
+    <div className=" mb-96">
       <Button onClick={handleBack} type="goBack">
         👈 Go Back
       </Button>
