@@ -56,10 +56,14 @@ export default function Home() {
         {userName ? (
           <div className="flex space-x-4">
             <span>
-              <Button destination={"./Borrower"}>Get Started</Button>
+              <Button destination={"./Borrower"} type="homepageButton">
+                Get Started
+              </Button>
             </span>
             <span>
-              <Button destination={"./DashBoardLogin"}>Go To Dashboard</Button>
+              <Button destination={"./DashBoardLogin"} type="homepageButton">
+                Go To Dashboard
+              </Button>
             </span>
           </div>
         ) : (

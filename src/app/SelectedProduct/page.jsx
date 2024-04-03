@@ -12,6 +12,8 @@ import {
   // query,
   // where,
 } from "firebase/firestore";
+import { useRouter } from "next/navigation";
+import Button from "../components/Button";
 
 const page = () => {
   const [data, setData] = useState([]);
@@ -21,19 +23,16 @@ const page = () => {
   const p_id = searchParams.get("itemId");
   // console.log("param: ",p_id);
 
+  const router = useRouter();
+
   useEffect(() => {
     const fetchProductData = async () => {
       try {
         const docRef = doc(db, "products", `${p_id}`);
-        // console.log("this is docRef: ",docRef);
 
         const docSnap = await getDoc(docRef);
 
-        console.log("this is docSnap: ",docSnap.data());
-
         if (docSnap.exists()) {
-          console.log("data: ", docSnap.data());
-          
           setData(docSnap.data());
         }
       } catch (error) {
@@ -41,16 +40,20 @@ const page = () => {
       }
     };
 
-
     if (p_id) {
       fetchProductData();
     }
   }, []);
 
-  console.log("this is state", data);
+  function handleBack() {
+    router.back();
+  }
 
   return (
     <div>
+      <Button onClick={handleBack} type="goBack">
+        👈 Go Back
+      </Button>
       <>
         <p>Product Name: {data.itemName}</p>
         <p>Product Description: {data.itemDescription}</p>

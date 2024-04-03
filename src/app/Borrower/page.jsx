@@ -8,6 +8,7 @@ import "./page.css";
 import { useSignUp } from "../Context/SignupContext";
 // import { getDatabase, ref, onValue } from "firebase/database";
 import CryptoJS from "crypto-js";
+import Button from "../components/Button";
 
 const page = () => {
   const [items, setData] = useState([]);
@@ -32,7 +33,6 @@ const page = () => {
   //   });
   // }, []);
 
-  const { userName } = useSignUp();
   const router = useRouter();
   useEffect(() => {
     const colRef = query(collection(db, "products"));
@@ -84,12 +84,12 @@ function Item({ item, handleClick }) {
         <p className="item-price">Product-Price: {item.itemPrice}</p>
         <p className="item-price">Product-Description: {item.itemDescribe}</p>
 
-        <button
-          className="text-sm border-2 border-blue-200 bg-blue-400 rounded-full p-2 text-stone-800 font-semibold w-40 hover:w-48 transition-all duration-300 hover:text-stone-50"
+        <Button
+          type="rentBorrowerButton"
           onClick={() => handleClick(item.email)}
         >
           Rent this Product
-        </button>
+        </Button>
       </div>
     </li>
   );
