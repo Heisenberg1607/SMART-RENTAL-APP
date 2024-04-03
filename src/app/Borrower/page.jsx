@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import "./page.css";
 import { useSignUp } from "../Context/SignupContext";
 // import { getDatabase, ref, onValue } from "firebase/database";
+import CryptoJS from "crypto-js";
 
 const page = () => {
   const [items, setData] = useState([]);
@@ -49,7 +50,11 @@ const page = () => {
     router.push(`/SelectedProduct?itemId=${itemId}`);
   };
 
-  const userNameOfCustomer = JSON.parse(sessionStorage.getItem("userName"));
+  // Decryption of the userName
+  const encryptedData = sessionStorage.getItem("encryptedUserName");
+  const decryptedBytes = CryptoJS.AES.decrypt(encryptedData, "secretKey");
+  const decryptedData = decryptedBytes.toString(CryptoJS.enc.Utf8);
+  const userNameOfCustomer = JSON.parse(decryptedData);
 
   return (
     <div className="p-5 bg-stone-50">

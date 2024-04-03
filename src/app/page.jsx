@@ -5,10 +5,17 @@ import Button from "./components/Button";
 // import { useState } from "react";
 import { useSignUp } from "./Context/SignupContext";
 // import "./globals.css"
+import CryptoJS from "crypto-js";
 
 export default function Home() {
   const { userName, handleUserName } = useSignUp();
-  sessionStorage.setItem("userName", JSON.stringify(userName));
+
+  // Encrypting the userName for privacy
+  const encryptedData = CryptoJS.AES.encrypt(
+    JSON.stringify(userName),
+    "secretKey"
+  ).toString();
+  sessionStorage.setItem("encryptedUserName", encryptedData);
 
   return (
     <>
