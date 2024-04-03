@@ -3,14 +3,14 @@ import React, { useEffect, useState } from "react";
 // import productData from "../data";
 import { db } from "../firebase";
 import { collection, query, onSnapshot, getDoc } from "firebase/firestore";
-import { useRouter } from "next/navigation";  
+import { useRouter } from "next/navigation";
 import "./page.css";
 import { useSignUp } from "../Context/SignupContext";
 // import { getDatabase, ref, onValue } from "firebase/database";
 
 const page = () => {
   const [items, setData] = useState([]);
-  
+
   // useEffect(() => {
   //   const colRef = collection(db, "products");
   //   console.log("colRef: ", colRef);
@@ -47,12 +47,14 @@ const page = () => {
   const handleClick = (itemId) => {
     // const colRef = getDoc(db, `user/${email}`);
     router.push(`/SelectedProduct?itemId=${itemId}`);
-};
+  };
+
+  const userNameOfCustomer = JSON.parse(sessionStorage.getItem("userName"));
 
   return (
     <div className="p-5 bg-stone-50">
       <h1 className="text-lg font-semibold text-center font-mono">
-        Hello, {userName}
+        Hello, {userNameOfCustomer}
       </h1>
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
         {items.length > 0 ? (

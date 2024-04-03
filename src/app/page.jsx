@@ -8,6 +8,8 @@ import { useSignUp } from "./Context/SignupContext";
 
 export default function Home() {
   const { userName, handleUserName } = useSignUp();
+  sessionStorage.setItem("userName", JSON.stringify(userName));
+
   return (
     <>
       <div className="home-page">
@@ -60,5 +62,3 @@ export default function Home() {
     </>
   );
 }
-
-
