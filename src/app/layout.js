@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import { AuthContextProvider } from "./Context/AuthContext.jsx";
 import "./globals.css";
 import { SignUpProvider } from "./Context/SignupContext.jsx";
+import Footer from "./components/Footer.jsx";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
           <SignUpProvider>
             <Navbar />
             {children}
+            <Footer />
           </SignUpProvider>
         </AuthContextProvider>
       </body>
