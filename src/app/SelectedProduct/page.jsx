@@ -18,24 +18,29 @@ const page = () => {
 
   const searchParams = useSearchParams();
 
-  const p_id = searchParams.get("id");
+  const p_id = searchParams.get("itemId");
+  // console.log("param: ",p_id);
 
   useEffect(() => {
     const fetchProductData = async () => {
       try {
         const docRef = doc(db, "products", `${p_id}`);
-        console.log(docRef);
+        // console.log("this is docRef: ",docRef);
 
         const docSnap = await getDoc(docRef);
 
+        console.log("this is docSnap: ",docSnap.data());
+
         if (docSnap.exists()) {
-          console.log(docSnap.data());
+          console.log("data: ", docSnap.data());
+          
           setData(docSnap.data());
         }
       } catch (error) {
         console.log(error);
       }
     };
+
 
     if (p_id) {
       fetchProductData();
@@ -48,8 +53,8 @@ const page = () => {
     <div>
       <>
         <p>Product Name: {data.itemName}</p>
-        <p>Product Name: {data.itemDescription}</p>
-        <p>Product Name: {data.itemPrice}</p>
+        <p>Product Description: {data.itemDescription}</p>
+        <p>Product Price: {data.itemPrice}</p>
         <button>Rent this product</button>
       </>
     </div>

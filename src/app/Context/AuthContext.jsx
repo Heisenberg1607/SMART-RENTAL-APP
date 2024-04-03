@@ -121,12 +121,13 @@ export const AuthContextProvider = ({ children }) => {
   async function storeItemData(itemName, itemPrice, itemDescribe, email) {
     try {
       const docRef = setDoc(
-        doc(collection(db, `products`)),
+        doc(collection(db, "products"), email),
         {
           itemPrice: itemPrice,
           itemName: itemName,
           itemDescribe: itemDescribe,
           email: email,
+          
           approved: false,
         }
       ).then(() => {

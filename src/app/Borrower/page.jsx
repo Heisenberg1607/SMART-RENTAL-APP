@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 // import productData from "../data";
 import { db } from "../firebase";
 import { collection, query, onSnapshot, getDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";  
 import "./page.css";
 import { useSignUp } from "../Context/SignupContext";
 // import { getDatabase, ref, onValue } from "firebase/database";
 
 const page = () => {
   const [items, setData] = useState([]);
+  
   // useEffect(() => {
   //   const colRef = collection(db, "products");
   //   console.log("colRef: ", colRef);
@@ -30,7 +32,7 @@ const page = () => {
   // }, []);
 
   const { userName } = useSignUp();
-
+  const router = useRouter();
   useEffect(() => {
     const colRef = query(collection(db, "products"));
     let product_data = [];
@@ -42,12 +44,10 @@ const page = () => {
     });
   }, []);
 
-  const handleClick = () => {
-    const email = sessionStorage.getItem("email");
-    const colRef = getDoc(db, `user/${email}`);
-
-    console.log(colRef);
-  };
+  const handleClick = (itemId) => {
+    // const colRef = getDoc(db, `user/${email}`);
+    router.push(`/SelectedProduct?itemId=${itemId}`);
+};
 
   return (
     <div className="p-5 bg-stone-50">
@@ -79,7 +79,7 @@ function Item({ item, handleClick }) {
 
         <button
           className="text-sm border-2 border-blue-200 bg-blue-400 rounded-full p-2 text-stone-800 font-semibold w-40 hover:w-48 transition-all duration-300 hover:text-stone-50"
-          onClick={handleClick}
+          onClick={() => handleClick(item.email)}
         >
           Rent this Product
         </button>
