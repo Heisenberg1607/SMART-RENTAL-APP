@@ -9,9 +9,11 @@ import { useSignUp } from "../Context/SignupContext";
 // import { getDatabase, ref, onValue } from "firebase/database";
 import CryptoJS from "crypto-js";
 import Button from "../components/Button";
+import Loader from "../components/Loader";
 
 const page = () => {
   const [items, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   // useEffect(() => {
   //   const colRef = collection(db, "products");
@@ -34,7 +36,9 @@ const page = () => {
   // }, []);
 
   const router = useRouter();
+
   useEffect(() => {
+    setIsLoading(true);
     const colRef = query(collection(db, "products"));
     let product_data = [];
     const q = onSnapshot(colRef, (querySnapshot) => {
@@ -42,6 +46,7 @@ const page = () => {
         product_data.push({ ...doc.data(), id: doc.id });
       });
       setData(product_data);
+      setIsLoading(false);
     });
   }, []);
 
@@ -62,10 +67,10 @@ const page = () => {
         Hello, {userNameOfCustomer}
       </h1>
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
-        {items.length > 0 ? (
-          items.map((item) => <Item item={item} handleClick={handleClick} />)
+        {isLoading ? (
+          <Loader />
         ) : (
-          <h1>Data not fetched</h1>
+          items.map((item) => <Item item={item} handleClick={handleClick} />)
         )}
       </ul>
     </div>
@@ -96,3 +101,11 @@ function Item({ item, handleClick }) {
 }
 
 export default page;
+
+{
+  /* {items.length > 0 ? (
+          items.map((item) => <Item item={item} handleClick={handleClick} />)
+        ) : (
+          <h1>Data not fetched</h1>
+        )} */
+}
