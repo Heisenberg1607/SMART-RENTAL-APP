@@ -91,7 +91,6 @@ export const AuthContextProvider = ({ children }) => {
         if (loggedUser.type == "Owner") {
           sessionStorage.setItem("email", loggedUser.email);
           sessionStorage.setItem("type", loggedUser.type);
-          location.reload();
           router.push("/Owner");
         } else {
           sessionStorage.setItem("email", loggedUser.email);
@@ -120,17 +119,14 @@ export const AuthContextProvider = ({ children }) => {
 
   async function storeItemData(itemName, itemPrice, itemDescribe, email) {
     try {
-      const docRef = setDoc(
-        doc(collection(db, "products"), email),
-        {
-          itemPrice: itemPrice,
-          itemName: itemName,
-          itemDescribe: itemDescribe,
-          email: email,
-          
-          approved: false,
-        }
-      ).then(() => {
+      const docRef = setDoc(doc(collection(db, "products"), email), {
+        itemPrice: itemPrice,
+        itemName: itemName,
+        itemDescribe: itemDescribe,
+        email: email,
+
+        approved: false,
+      }).then(() => {
         alert("Product added!");
         console.log("Document written with ID: ", docRef.id);
         return true;
