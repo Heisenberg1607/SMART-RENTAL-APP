@@ -18,7 +18,7 @@ function Button({ children, destination, type, onClick }) {
       )}
       {type === "rentBorrowerButton" && (
         <button
-          className="text-sm border-2 border-blue-200 bg-blue-400 rounded-full p-2 text-stone-800 font-semibold w-40 hover:w-48 transition-all duration-300 hover:text-stone-50"
+          className="text-sm border-2 border-blue-200 bg-blue-500 rounded-full p-2 text-stone-800 font-semibold w-40 hover:w-48 transition-all duration-300 hover:text-stone-50"
           onClick={onClick}
         >
           {children}

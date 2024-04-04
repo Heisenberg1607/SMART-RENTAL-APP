@@ -5,13 +5,13 @@ const AboutUs = () => {
   return (
     <>
       <section id="home">
-        <div class="home-left">
+        <div className="home-left">
           <img src="/Images/Rental.jpg" />
           <br />
         </div>
-        <div class="home-right">
-          <h2 class="home-heading"> ABOUT US </h2>
-          <p class="home-para">
+        <div className="home-right">
+          <h2 className="home-heading"> ABOUT US </h2>
+          <p className="home-para">
             Our project was born out of a shared vision to revolutionise the
             rental landscape, offering a secure, transparent, and decentralised
             platform that empowers both renters and property owners. Our project
@@ -27,8 +27,11 @@ const AboutUs = () => {
         </div>
       </section>
       <section id="workFlow">
-        <h1 class="heading"> OUR STORY </h1>
-        <p class="para">
+        <h1 class="heading text-center text-2xl font-semibold text-stone-700 tracking-wider">
+          {" "}
+          OUR STORY{" "}
+        </h1>
+        <p class="para w-[1000px]">
           As fellow undergrad students at JSPM NTC Atharva C., Tanish, Ashwin
           and Atharva K. noticed the irregularities in the traditional rental
           systems.
@@ -97,28 +100,54 @@ const AboutUs = () => {
         </div>
       </section>
 
-      <section id="our-Team">
-        <h2>Our Members</h2>
-        <div class="teamContainer">
+      <section id="our-team" class="py-8">
+        <h2 class="text-2xl font-semibold mb-4 text-center tracking-wider">
+          Our Members
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div class="team-item">
-            <img src="/Images/AtharvaC.jpg" alt="" />
-            <h5 class="member-name">Atharva Chakankar</h5>
-            <span class="role">ROLE</span>
+            <img
+              src="/Images/AtharvaC.jpg"
+              alt="Atharva Chakankar"
+              class="rounded-full w-40 h-40 object-cover mx-auto"
+            />
+            <h5 class="text-xl font-semibold mt-4 mb-2 text-center">
+              Atharva Chakankar
+            </h5>
+            <span class="block text-center">ROLE</span>
           </div>
           <div class="team-item">
-            <img src="/Images/Tanish.jpg" alt="" />
-            <h5 class="member-name">Tanish Kinkar</h5>
-            <span class="role">ROLE</span>
+            <img
+              src="/Images/Tanish.jpg"
+              alt="Tanish Kinkar"
+              class="rounded-full w-40 h-40 object-cover mx-auto"
+            />
+            <h5 class="text-xl font-semibold mt-4 mb-2 text-center">
+              Tanish Kinkar
+            </h5>
+            <span class="block text-center">ROLE</span>
           </div>
           <div class="team-item">
-            <img src="/Images/AtharvaK.jpg" alt="" />
-            <h5 class="member-name">Atharva Kurumbhatte</h5>
-            <span class="role">ROLE</span>
+            <img
+              src="/Images/AtharvaK.jpg"
+              alt="Atharva Kurumbhatte"
+              class="rounded-full w-40 h-40 object-cover mx-auto"
+            />
+            <h5 class="text-xl font-semibold mt-4 mb-2 text-center">
+              Atharva Kurumbhatte
+            </h5>
+            <span class="block text-center">ROLE</span>
           </div>
           <div class="team-item">
-            <img src="/Images/Ashwin.JPG" alt="" />
-            <h5 class="member-name">Ashwin Kapile</h5>
-            <span class="role">ROLE</span>
+            <img
+              src="/Images/Ashwin.JPG"
+              alt="Ashwin Kapile"
+              class="rounded-full w-40 h-40 object-cover mx-auto"
+            />
+            <h5 class="text-xl font-semibold mt-4 mb-2 text-center">
+              Ashwin Kapile
+            </h5>
+            <span class="block text-center">ROLE</span>
           </div>
         </div>
       </section>
