@@ -28,7 +28,7 @@ function Footer() {
   };
 
   return (
-    <footer className="bg-gray-800 text-gray-200 tracking-wide">
+    <footer className="bg-gray-800 text-gray-200 tracking-wider">
       <div className="container mx-auto py-8 px-4 lg:px-0">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="space-y-4">

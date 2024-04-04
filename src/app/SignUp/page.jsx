@@ -32,7 +32,7 @@ const page = () => {
   } = useSignUp();
 
   return (
-    <Card className="centered-card">
+    <Card className="centered-card mb-32">
       <CardActionArea>
         <CardContent>
           <Typography variant="h5" component="h2">
