@@ -22,7 +22,7 @@ export const AuthContextProvider = ({ children }) => {
   const [email, setEmail] = useState("");
   let loggedUser = { name: "", email: "", password: "", type: "" };
 
-  async function addDataToFireStore(name, email, type, password) {
+  async function addDataToFireStore(name, email, type, password,walletAddress) {
     console.log("email is this in AuthCon", email);
 
     try {
@@ -33,6 +33,7 @@ export const AuthContextProvider = ({ children }) => {
         email: email,
         type: type,
         password: password,
+        walletAddress: walletAddress,
       });
       setDoc(doc(db, `products/${email}`), {
         id: email,
@@ -83,6 +84,7 @@ export const AuthContextProvider = ({ children }) => {
           email: docData.email,
           password: docData.password,
           type: docData.type,
+          walletAddress: docData.walletAddress,
         };
         console.log("logged in user: ", loggedUser);
         // setLoggedUser(loggedUser => ({  newData }));

@@ -23,11 +23,13 @@ const page = () => {
     email,
     password,
     type,
+    walletAddress,
     handleSetEmail,
     handleSetPassword,
     handleSetName,
     handleSetType,
     handleSubmit,
+    handleSetAddress,
     errorMessage,
   } = useSignUp();
 
@@ -67,6 +69,13 @@ const page = () => {
               type="password"
               value={password}
               onChange={handleSetPassword}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="MetaMask Address"
+              value={walletAddress}
+              onChange={handleSetAddress}
               fullWidth
               margin="normal"
             />
