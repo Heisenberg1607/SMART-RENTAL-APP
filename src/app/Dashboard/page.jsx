@@ -48,12 +48,17 @@ const itemCard = () => {
   return (
     <>
       <div className="p-5 bg-stone-50">
-        <h1 className="text-lg font-semibold text-center font-mono tracking-wide">
-          Dashboard
+        <h1 className="text-lg font-semibold text-center font-mono tracking-wide bg-blue-200 rounded-lg p-2">
+          Admin's Dashboard
         </h1>
-        <h1 className="text-center text-2xl font-semibold text-stone-600 tracking-wider m-3">
-          Products which are for sale
-        </h1>
+        <marquee
+          behavior="scroll"
+          direction="left"
+          scrollamount="10"
+          className="text-center text-2xl font-semibold text-stone-600 tracking-wider m-3"
+        >
+          Accept/Reject The Products which Want To Be Shown For Sale
+        </marquee>
         {/* <button onClick={fetchDataFromFireStore}>get data</button> */}
 
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
@@ -86,10 +91,10 @@ function Item({ item, handleApprove }) {
         <p>{item.id}</p>
         <div className="flex flex-row space-x-3 justify-center">
           <button
-            className="approve-button"
+            className="cursor-pointer bg-green-500 rounded-lg p-2 mt-3 transition-all duration-300 hover:bg-green-400 hover:text-stone-800 text-stone-700 font-semibold hover:tracking-wider"
             onClick={() => handleApprove(item.id)}
           >
-            Approve
+            Accept
           </button>
 
           <Link
@@ -97,7 +102,7 @@ function Item({ item, handleApprove }) {
               pathname: "/SelectedProduct",
               query: { id: `${item.id}` },
             }}
-            className="reject-button"
+            className="cursor-pointer bg-red-500 rounded-lg p-2 mt-3 transition-all duration-300 hover:bg-red-400 hover:text-stone-800 text-stone-700 font-semibold hover:tracking-wider"
           >
             Reject
           </Link>
