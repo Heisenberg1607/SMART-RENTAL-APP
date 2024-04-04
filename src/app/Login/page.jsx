@@ -29,7 +29,7 @@ const page = () => {
   const handleAdmin = () => {
     // e.preventDefault();
     router.push("./DashBoardLogin");
-  }
+  };
 
   return (
     <div className="text-center bg-slate-100 m-12 mt-28 p-8 rounded-md">
@@ -61,8 +61,13 @@ const page = () => {
         <button className="border-1 p-2 bg-blue-500 text-stone-900 font-semibold text-sm hover:bg-blue-400 hover:font-medium transition-all duration-300 hover:text-stone-800 w-28 hover:w-36 rounded-xl">
           Login
         </button>
-        
-        <p onClick={handleAdmin} className="mt-5 text-gray-500">Admin? Log in here.</p>  
+
+        <p
+          onClick={handleAdmin}
+          className="mt-5 text-gray-500 font-semibold cursor-pointer hover:tracking-wider transition-all duration-300"
+        >
+          Admin? Log in here.
+        </p>
       </form>
     </div>
   );
