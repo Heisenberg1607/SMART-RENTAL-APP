@@ -9,15 +9,19 @@ import {
   query,
   where,
   doc,
-  updateDoc
+  updateDoc,
 } from "firebase/firestore";
 import Link from "next/link";
 import { formControlClasses } from "@mui/material";
 import "./page.css";
+import Loader from "../components/Loader";
 
 const itemCard = () => {
   const [items, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
+    setIsLoading(true);
     const colRef = query(collection(db, "products"));
     console.log(colRef);
     let product_data = [];
@@ -28,56 +32,37 @@ const itemCard = () => {
       });
       console.log(product_data);
       setData(product_data);
+      setIsLoading(false);
     });
   }, []);
 
-const handleApprove = (id) => {
-  const docRef = doc(db, "products", id);
-  console.log(docRef);
+  const handleApprove = (id) => {
+    const docRef = doc(db, "products", id);
+    console.log(docRef);
 
-  updateDoc(docRef, {
-    approved: true,
-  });
-};
+    updateDoc(docRef, {
+      approved: true,
+    });
+  };
 
   return (
     <>
-      <div>
-        <h1 className="header-dashboard">Dashboard</h1>
-        <h1 className="sub-header">Products which are for sale</h1>
+      <div className="p-5 bg-stone-50">
+        <h1 className="text-lg font-semibold text-center font-mono tracking-wide">
+          Dashboard
+        </h1>
+        <h1 className="text-center text-2xl font-semibold text-stone-600 tracking-wider m-3">
+          Products which are for sale
+        </h1>
         {/* <button onClick={fetchDataFromFireStore}>get data</button> */}
 
-        <ul className="all-products-borrower">
-          {items.length > 0 ? (
-            items.map((item) => (
-              <li key={item.id}>
-                <p className="email">Owner: {item.email}</p>
-                <p className=" item-name">Product-Name: {item.itemName}</p>
-                <p className="item-price">Product-Price: {item.itemPrice}</p>
-                <p className="item-price">
-                  Product-Description: {item.itemDescribe}
-                </p>
-                <p>{item.id}</p>
-                <button
-                  className="approve-button"
-                  onClick={() => handleApprove(item.id)}
-                >
-                  Approve
-                </button>
-
-                <Link
-                  href={{
-                    pathname: "/SelectedProduct",
-                    query: { id: `${item.id}` },
-                  }}
-                  className="reject-button"
-                >
-                  Reject
-                </Link>
-              </li>
-            ))
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
+          {isLoading ? (
+            <Loader />
           ) : (
-            <h1>Data not fetched</h1>
+            items.map((item) => (
+              <Item item={item} handleApprove={handleApprove} />
+            ))
           )}
         </ul>
       </div>
@@ -86,3 +71,38 @@ const handleApprove = (id) => {
 };
 
 export default itemCard;
+
+function Item({ item, handleApprove }) {
+  return (
+    <li
+      key={item.id}
+      className="flex flex-col gap-1 text-center justify-center items-center p-3"
+    >
+      <div className="rounded-lg overflow-hidden shadow-md bg-white md:w-80 w-64 p-8">
+        <p className="email">Owner: {item.email}</p>
+        <p className=" item-name">Product-Name: {item.itemName}</p>
+        <p className="item-price">Product-Price: {item.itemPrice}</p>
+        <p className="item-price">Product-Description: {item.itemDescribe}</p>
+        <p>{item.id}</p>
+        <div className="flex flex-row space-x-3 justify-center">
+          <button
+            className="approve-button"
+            onClick={() => handleApprove(item.id)}
+          >
+            Approve
+          </button>
+
+          <Link
+            href={{
+              pathname: "/SelectedProduct",
+              query: { id: `${item.id}` },
+            }}
+            className="reject-button"
+          >
+            Reject
+          </Link>
+        </div>
+      </div>
+    </li>
+  );
+}
