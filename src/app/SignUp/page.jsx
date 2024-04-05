@@ -15,6 +15,7 @@ import {
   Button,
 } from "@mui/material";
 import "./signUp.css";
+import { useEffect, useState } from "react";
 // import { CheckBox } from "@mui/icons-material";
 
 const page = () => {
@@ -33,6 +34,9 @@ const page = () => {
     errorMessage,
   } = useSignUp();
 
+
+  
+
   return (
     <Card className="centered-card mb-32">
       <CardActionArea>
@@ -50,8 +54,16 @@ const page = () => {
               onChange={handleSetName}
               fullWidth
               margin="normal"
+              required
             />
-            <Select name="" id="" value={type} onChange={handleSetType}>
+            <Select
+              name=""
+              id=""
+              value={type}
+              onChange={handleSetType}
+              placeholder="Select user type"
+              required
+            >
               <MenuItem value="Borrower">Borrower</MenuItem>
               <MenuItem value="Owner">Owner</MenuItem>
             </Select>
@@ -63,6 +75,7 @@ const page = () => {
               onChange={handleSetEmail}
               fullWidth
               margin="normal"
+              required
             />
             <TextField
               label="Password"
@@ -71,14 +84,19 @@ const page = () => {
               onChange={handleSetPassword}
               fullWidth
               margin="normal"
+              required
             />
-            <TextField
-              label="MetaMask Address"
-              value={walletAddress}
-              onChange={handleSetAddress}
-              fullWidth
-              margin="normal"
-            />
+
+            {type === "Owner" ? (
+              <TextField
+                label="MetaMask Address"
+                value={walletAddress}
+                onChange={handleSetAddress}
+                fullWidth
+                margin="normal"
+              />
+            ) : null}
+
             <Button
               type="submit"
               fullWidth
@@ -93,6 +111,8 @@ const page = () => {
     </Card>
   );
 };
+
+
 
 export default page;
 
