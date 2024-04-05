@@ -22,7 +22,13 @@ export const AuthContextProvider = ({ children }) => {
   const [email, setEmail] = useState("");
   let loggedUser = { name: "", email: "", password: "", type: "" };
 
-  async function addDataToFireStore(name, email, type, password,walletAddress) {
+  async function addDataToFireStore(
+    name,
+    email,
+    type,
+    password,
+    walletAddress
+  ) {
     console.log("email is this in AuthCon", email);
 
     try {
@@ -94,6 +100,7 @@ export const AuthContextProvider = ({ children }) => {
           sessionStorage.setItem("email", loggedUser.email);
           sessionStorage.setItem("type", loggedUser.type);
           router.push("/Owner");
+          router.refresh();
         } else {
           sessionStorage.setItem("email", loggedUser.email);
           sessionStorage.setItem("type", loggedUser.type);

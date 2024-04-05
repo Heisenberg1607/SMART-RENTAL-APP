@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  // const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const { logOut } = UserAuth();
 
   const router = useRouter();
@@ -39,30 +39,37 @@ const Navbar = () => {
           </IconButton>
 
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {/* Smart Rental App Logo */}
             <button onClick={goToHomeage}>Smart Rental App Logo</button>
           </Typography>
 
-          <Link href="AboutUs" color="inherit" className="navbar-link">
-            <Typography variant="subtitle1" sx={{ ml: 2 }}>
-              About Us
-            </Typography>
-          </Link>
-
           {sessionStorage.getItem("email") ? (
-            <Link href="SignUp" color="inherit" className="navbar-link">
-              <Typography
-                variant="subtitle1"
-                sx={{ ml: 2 }}
+            <>
+              <Link href="Owner" color="inherit" className="navbar-link">
+                <Typography variant="subtitle1" sx={{ ml: 2 }}>
+                  Hello, {sessionStorage.getItem("email").split("@")[0]}
+                </Typography>
+              </Link>
+              <Link
+                href="Login"
+                color="inherit"
+                className="navbar-link"
                 onClick={() => {
+                  sessionStorage.removeItem("email");
                   logOut();
                 }}
               >
-                Hello, {sessionStorage.getItem("email")}
-              </Typography>
-            </Link>
+                <Typography variant="subtitle1" sx={{ ml: 2 }}>
+                  Logout
+                </Typography>
+              </Link>
+            </>
           ) : (
             <div className="navbar-btns">
+              <Link href="AboutUs" color="inherit" className="navbar-link">
+                <Typography variant="subtitle1" sx={{ ml: 2 }}>
+                  About Us
+                </Typography>
+              </Link>
               <Link href="SignUp" color="inherit" className="navbar-link">
                 <Typography variant="subtitle1" sx={{ ml: 2 }}>
                   Sign Up
