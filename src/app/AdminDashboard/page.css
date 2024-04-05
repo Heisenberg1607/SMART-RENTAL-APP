@@ -1,0 +1,46 @@
+/* Styles for the container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Styles for the product card */
+.card {
+  width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles for the product details */
+.email {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.item-name,
+.item-price,
+.item-description {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* Styles for the delete button */
+.delete-btn {
+  margin-top: 20px;
+}
+
+.delete-btn button {
+  padding: 10px 20px;
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn button:hover {
+  background-color: #cc0000;
+}

@@ -58,7 +58,7 @@ const page = () => {
   }, [object]);
 
   const goToDashboard = () => {
-    router.push("/Dashboard");
+    router.push("/AdminDashboard");
   };
 
   const goToOwnerPage = () => {
@@ -77,7 +77,7 @@ const page = () => {
       <div className="owner-page">
         <div className="left-navigation">
           <ul className="left-nav-items">
-            <button onClick={goToDashboard}>Dashboard</button>
+            <button onClick={goToDashboard}>Owner's Dashboard</button>
 
             <button onClick={goToOwnerPage}>Put something for rent</button>
 
