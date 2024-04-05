@@ -18,10 +18,10 @@ import { useSignUp } from "../Context/SignupContext";
 
 const page = () => {
   const router = useRouter();
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  // const [adminName, setAdminName] = useState("");
+  // const [adminPassword, setAdminPassword] = useState("");
 
-  const { userName } = useSignUp();
+  const { adminName, adminPassword, handleName, handlePassword } = useSignUp();
 
   function gotToDashBoard() {
     router.push("./Dashboard");
@@ -38,7 +38,7 @@ const page = () => {
     ];
 
     const user = validUsers.find(
-      (user) => user.name === name && user.password === password
+      (user) => user.name === adminName && user.password === adminPassword
     );
 
     if (user) {
@@ -49,8 +49,11 @@ const page = () => {
     }
   };
 
-  // function gotToDashBoard() {
-  //   router.push("./Dashboard");
+  // function handleName(e) {
+  //   setAdminName(e.target.value);
+  // }
+  // function handlePassword(e) {
+  //   setAdminPassword(e.target.value);
   // }
 
   return (
@@ -66,9 +69,8 @@ const page = () => {
           <form className="centered-card">
             <TextField
               label="Name"
-              value={name}
-              defaultValue={userName}
-              onChange={(e) => setName(e.target.value)}
+              value={adminName}
+              onChange={handleName}
               fullWidth
               margin="normal"
             />
@@ -76,8 +78,8 @@ const page = () => {
             <TextField
               label="Password"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={adminPassword}
+              onChange={handlePassword}
               fullWidth
               margin="normal"
             />

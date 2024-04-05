@@ -15,10 +15,13 @@ import Link from "next/link";
 import { formControlClasses } from "@mui/material";
 import "./page.css";
 import Loader from "../components/Loader";
+import { useSignUp } from "../Context/SignupContext";
 
 const itemCard = () => {
   const [items, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { adminName } = useSignUp();
 
   useEffect(() => {
     setIsLoading(true);
@@ -48,9 +51,10 @@ const itemCard = () => {
   return (
     <>
       <div className="p-5 bg-stone-50">
-        <h1 className="text-lg font-semibold text-center font-mono tracking-wide bg-blue-200 rounded-lg p-2">
-          Admin's Dashboard
-        </h1>
+        <div className="text-lg font-semibold text-center font-mono tracking-wide bg-blue-200 rounded-lg p-3 flex flex-row justify-between">
+          <h1 className="ml-2">Admin's Dashboard</h1>
+          <h1 className="mr-2">{adminName}</h1>
+        </div>
         <marquee
           behavior="scroll"
           direction="left"

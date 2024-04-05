@@ -8,8 +8,11 @@ export function SignUpProvider({ children }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("");
+
   const [userName, setUserName] = useState("");
-  const [walletAddress, setAddress] = useState("");
+
+  const [adminName, setAdminName] = useState("");
+  const [adminPassword, setAdminPassword] = useState("");
 
   const { createUser, errorMessage, addDataToFireStore } = UserAuth();
 
@@ -26,7 +29,7 @@ export function SignUpProvider({ children }) {
 
     console.log("this is the value in handleSubmit", type);
 
-    const added = addDataToFireStore(name, email, type, password,walletAddress);
+    const added = addDataToFireStore(name, email, type, password);
 
     console.log("result is: ", added);
 
@@ -53,9 +56,14 @@ export function SignUpProvider({ children }) {
   function handleSetEmail(e) {
     setEmail(e.target.value);
   }
-  function handleSetAddress(e) {
-    setAddress(e.target.value);
+
+  function handleName(e) {
+    setAdminName(e.target.value);
   }
+  function handlePassword(e) {
+    setAdminPassword(e.target.value);
+  }
+
   return (
     <SignupContext.Provider
       value={{
@@ -63,7 +71,6 @@ export function SignUpProvider({ children }) {
         email,
         password,
         type,
-        walletAddress,
         handleSetEmail,
         handleSetPassword,
         handleSetName,
@@ -72,7 +79,10 @@ export function SignUpProvider({ children }) {
         errorMessage,
         userName,
         handleUserName,
-        handleSetAddress,
+        adminName,
+        adminPassword,
+        handleName,
+        handlePassword,
       }}
     >
       {children}
