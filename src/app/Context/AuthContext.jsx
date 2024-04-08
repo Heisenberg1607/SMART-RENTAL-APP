@@ -19,7 +19,8 @@ export const AuthContextProvider = ({ children }) => {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [email, setEmail] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [email, setEmail] = useState("");
   let loggedUser = { name: "", email: "", password: "", type: "" };
 
   async function addDataToFireStore(
@@ -95,6 +96,7 @@ export const AuthContextProvider = ({ children }) => {
         console.log("logged in user: ", loggedUser);
         // setLoggedUser(loggedUser => ({  newData }));
         // console.log("logged in user: ", loggedUser);
+        setIsAuthenticated(true);
 
         if (loggedUser.type == "Owner") {
           sessionStorage.setItem("email", loggedUser.email);
@@ -164,6 +166,7 @@ export const AuthContextProvider = ({ children }) => {
         errorMessage,
         addDataToFireStore,
         storeItemData,
+        isAuthenticated,
       }}
     >
       {children}
@@ -174,3 +177,18 @@ export const AuthContextProvider = ({ children }) => {
 export const UserAuth = () => {
   return useContext(AuthContext);
 };
+
+/*To make sure any un-auhenticated user can't access the Owner's page using the URL, I have taken below steps 👇
+
+1) Checked here if the user is authenticated or not using the isAuthenticated hook -> googleSign() is already authenticating
+the user, so after it authenticates the user, we simply set the state of isAuthenticated to be true.
+2) We passed the isAuthenticated to the app using context
+3) Created a new page component called "ProtectedRoute"
+4) This ProtectedRoute is simply checking if (!isAuthenticated), if so then we are redirecting user to the Login Page
+5) But if the user isAuthenticated, then we are simply showing the "children"
+6) We enclose our Owner's page with the ProtectedRoute component. So now the Owner's page becomes children to ProtectedRoute.
+7) So before everytime the browser wants to display the Owener's page, it will first render the ProtectedRoute component
+and check if the isAuthenticated is true or false, based on that only it will display our Owner's page hence securing our 
+Owner's page from fraudaulents.
+
+*/

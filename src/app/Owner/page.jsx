@@ -14,6 +14,7 @@ import {
   uploadTaskSnapshot,
 } from "firebase/storage";
 import productData from "../data";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 const page = () => {
   const router = useRouter();
@@ -27,7 +28,7 @@ const page = () => {
 
   // console.log(picture);
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const email = sessionStorage.getItem("email");
@@ -84,71 +85,73 @@ const page = () => {
   // console.log("from owner page: ", loggedUser);
   return (
     <>
-      <div className="owner-page">
-        <div className="left-navigation">
-          <ul className="left-nav-items">
-            <button onClick={goToDashboard}>Owner's Dashboard</button>
+      <ProtectedRoute>
+        <div className="owner-page">
+          <div className="left-navigation">
+            <ul className="left-nav-items">
+              <button onClick={goToDashboard}>Owner's Dashboard</button>
 
-            <button onClick={goToOwnerPage}>Put something for rent</button>
+              <button onClick={goToOwnerPage}>Put something for rent</button>
 
-            <button
-              onClick={() => {
-                logOut();
-              }}
-            >
-              LogOut
-            </button>
-          </ul>
+              <button
+                onClick={() => {
+                  logOut();
+                }}
+              >
+                LogOut
+              </button>
+            </ul>
+          </div>
+          <div className="rent-item-form">
+            <h1>Put something for rent</h1>
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="item-name">Item Name</label>
+              <input
+                type="text"
+                name=""
+                id="item-name"
+                value={itemName}
+                onChange={(e) => {
+                  setItemName(e.target.value);
+                }}
+              />
+
+              <label htmlFor="item-price">Item Price</label>
+              <input
+                type="text"
+                name=""
+                id="item-price"
+                value={itemPrice}
+                onChange={(e) => {
+                  setItemPrice(e.target.value);
+                }}
+              />
+
+              <label htmlFor="item-image">Item Image</label>
+              <input
+                type="file"
+                accept="image/*" // Added accept attribute for image files
+                onChange={handleImageChange}
+              />
+
+              <label htmlFor="item-description">Describe your item</label>
+              <textarea
+                type="text"
+                name=""
+                id="item-description"
+                value={itemDescribe}
+                onChange={(e) => {
+                  setItemDescribe(e.target.value);
+                }}
+              />
+
+              {/* <h1>{itemName}</h1> */}
+
+              <button type="submit">Display for Rent</button>
+            </form>
+          </div>
         </div>
-        <div className="rent-item-form">
-          <h1>Put something for rent</h1>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="item-name">Item Name</label>
-            <input
-              type="text"
-              name=""
-              id="item-name"
-              value={itemName}
-              onChange={(e) => {
-                setItemName(e.target.value);
-              }}
-            />
-
-            <label htmlFor="item-price">Item Price</label>
-            <input
-              type="text"
-              name=""
-              id="item-price"
-              value={itemPrice}
-              onChange={(e) => {
-                setItemPrice(e.target.value);
-              }}
-            />
-
-            <label htmlFor="item-image">Item Image</label>
-            <input
-              type="file"
-              accept="image/*" // Added accept attribute for image files
-              onChange={handleImageChange}
-            />
-
-            <label htmlFor="item-description">Describe your item</label>
-            <textarea
-              type="text"
-              name=""
-              id="item-description"
-              value={itemDescribe}
-              onChange={(e) => {
-                setItemDescribe(e.target.value);
-              }}
-            />
-
-            {/* <h1>{itemName}</h1> */}
-
-            <button type="submit">Display for Rent</button>
-          </form>
-        </div>
-      </div>
+      </ProtectedRoute>
     </>
   );
 };

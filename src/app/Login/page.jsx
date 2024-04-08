@@ -32,7 +32,7 @@ const page = () => {
   };
 
   return (
-    <div className="text-center bg-slate-100 m-12 mt-28 p-8 rounded-md">
+    <div className="text-center bg-slate-100 mt-20 mb-20 p-8 rounded-md">
       <h1 className="text-stone-600 font-bold mt-10 tracking-widest font-mono capitalize text-xl">
         Login to your account below
       </h1>
