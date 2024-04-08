@@ -27,7 +27,7 @@ const page = () => {
 
   // console.log(picture);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     const email = sessionStorage.getItem("email");
@@ -39,6 +39,11 @@ const page = () => {
       console.log("done!");
     } else {
       console.log("not done!");
+    }
+
+    if (picture) {
+      const storageRef = ref(storage, `images/${email}`);
+      await uploadBytes(storageRef, picture);
     }
 
     // append new data into the array
@@ -56,6 +61,11 @@ const page = () => {
   useEffect(() => {
     console.log("Updated object:", object);
   }, [object]);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setPicture(file);
+  };
 
   const goToDashboard = () => {
     router.push("/AdminDashboard");
@@ -118,10 +128,8 @@ const page = () => {
             <label htmlFor="item-image">Item Image</label>
             <input
               type="file"
-              onChange={(e) => {
-                const [file] = e.target.files;
-                setPicture((picture) => [...picture, file]);
-              }}
+              accept="image/*" // Added accept attribute for image files
+              onChange={handleImageChange}
             />
 
             <label htmlFor="item-description">Describe your item</label>

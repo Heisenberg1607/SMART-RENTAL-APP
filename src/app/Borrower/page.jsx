@@ -6,6 +6,15 @@ import { collection, query, onSnapshot, getDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import "./page.css";
 import { useSignUp } from "../Context/SignupContext";
+import { storage } from "../firebase";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+  uploadString,
+  uploadTaskSnapshot,
+} from "firebase/storage";
 // import { getDatabase, ref, onValue } from "firebase/database";
 import CryptoJS from "crypto-js";
 import Button from "../components/Button";
@@ -78,12 +87,32 @@ const page = () => {
 };
 
 function Item({ item, handleClick }) {
+
+  const [imageUrl, setImageUrl] = useState(null);
+
+  useEffect(() => {
+    // Fetch image URL from Firebase Storage
+    const fetchImageUrl = async () => {
+      try {
+        const imageRef = ref(storage, `images/${item.email}`); // Assuming the image is stored with the same email as in Firestore
+        const url = await getDownloadURL(imageRef);
+        setImageUrl(url);
+        console.log(imageUrl);
+      } catch (error) {
+        console.error("Error fetching image URL:", error);
+      }
+    };
+
+    fetchImageUrl(); // Fetch the image URL when the component mounts
+  }, [item.email]);
+
   return (
     <li
       key={item.id}
       className="flex flex-col gap-1 text-center justify-center items-center p-3"
     >
       <div className="rounded-lg overflow-hidden shadow-md bg-white md:w-80 w-64 p-8">
+        <img src={imageUrl} alt="Product" className="w-full" />
         <p className="email">Owner: {item.email}</p>
         <p className=" item-name">Product-Name: {item.itemName}</p>
         <p className="item-price">Product-Price: {item.itemPrice}</p>
