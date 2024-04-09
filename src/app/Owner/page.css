@@ -1,9 +1,7 @@
-.owner-page{
-    display: flex;
-    margin-top: 15px;
-
+.owner-page {
+  display: flex;
+  margin-top: 15px;
 }
-
 
 .rent-item-form {
   width: 400px;
@@ -12,8 +10,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
-  height:70vh;
-
+  height: 70vh;
 }
 
 .rent-item-form h1 {
@@ -59,9 +56,8 @@
 
 .left-navigation {
   width: 200px; /* Adjust width as needed */
-  margin-left:20px;
-  margin-top:40px
-  
+  margin-left: 20px;
+  margin-top: 40px;
 }
 
 .left-nav-items {

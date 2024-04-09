@@ -86,69 +86,142 @@ const page = () => {
   return (
     <>
       <ProtectedRoute>
-        <div className="owner-page">
-          <div className="left-navigation">
-            <ul className="left-nav-items">
-              <button onClick={goToDashboard}>Owner's Dashboard</button>
-
-              <button onClick={goToOwnerPage}>Put something for rent</button>
-
-              <button
-                onClick={() => {
-                  logOut();
-                }}
-              >
-                LogOut
-              </button>
-            </ul>
+        <div className="w-screen h-screen bg-stone-200">
+          <div className="text-2xl text-stone-600 font-semibold tracking-widest text-center p-3">
+            <marquee> Welcome To Your Owner's Page</marquee>
           </div>
-          <div className="rent-item-form">
-            <h1>Put something for rent</h1>
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="item-name">Item Name</label>
-              <input
-                type="text"
-                name=""
-                id="item-name"
-                value={itemName}
-                onChange={(e) => {
-                  setItemName(e.target.value);
-                }}
-              />
 
-              <label htmlFor="item-price">Item Price</label>
-              <input
-                type="text"
-                name=""
-                id="item-price"
-                value={itemPrice}
-                onChange={(e) => {
-                  setItemPrice(e.target.value);
-                }}
-              />
+          <div className="bg-[#006494] w-screen h-screen">
+            <div>
+              <div className="flex justify-center items-center h-40 mb-6">
+                <div className="border-1 bg-blue-300 text-center rounded-md shadow-md w-96 h-24 ">
+                  <p className="text-stone-800 font-mono font-medium tracking-wide p-3">
+                    Please Answer a few basic questions below to add your
+                    product for renting purposes
+                  </p>
+                </div>
+              </div>
 
-              <label htmlFor="item-image">Item Image</label>
-              <input
-                type="file"
-                accept="image/*" // Added accept attribute for image files
-                onChange={handleImageChange}
-              />
+              <div className="flex flex-row justify-evenly gap-7 items-stretch">
+                <div className="left-navigation">
+                  <ul className="left-nav-items">
+                    <button
+                      onClick={goToDashboard}
+                      className="rounded-md hover:bg-stone-400 transition-all duration-300 font-semibold"
+                    >
+                      Owner's Dashboard
+                    </button>
+                    <button
+                      onClick={goToOwnerPage}
+                      className="rounded-md hover:bg-stone-400 transition-all duration-300 font-semibold"
+                    >
+                      Put something for rent
+                    </button>
 
-              <label htmlFor="item-description">Describe your item</label>
-              <textarea
-                type="text"
-                name=""
-                id="item-description"
-                value={itemDescribe}
-                onChange={(e) => {
-                  setItemDescribe(e.target.value);
-                }}
-              />
+                    <button
+                      onClick={() => {
+                        logOut();
+                      }}
+                      className="rounded-md hover:bg-stone-400 transition-all duration-300 font-semibold"
+                    >
+                      LogOut
+                    </button>
+                  </ul>
+                </div>
 
-              {/* <h1>{itemName}</h1> */}
-
-              <button type="submit">Display for Rent</button>
-            </form>
+                <div className="flex justify-center items-center h-80">
+                  <form
+                    className="bg-[#D5DEEF] text-center w-[900px] flex flex-col rounded-sm p-10"
+                    onSubmit={handleSubmit}
+                  >
+                    <span className="flex flex-row gap-2 justify-between items-center mb-4">
+                      <label
+                        htmlFor="item-name"
+                        className="text-stone-700 font-semibold text-lg"
+                      >
+                        Enter The Name Of The Product You Want To Rent
+                      </label>
+                      <input
+                        type="text"
+                        name=""
+                        id="item-name"
+                        value={itemName}
+                        onChange={(e) => {
+                          setItemName(e.target.value);
+                        }}
+                        className="rounded-full p-2 w-80"
+                      />
+                    </span>
+                    <span className="flex flex-row gap-2 justify-between items-center mb-4">
+                      <label
+                        htmlFor="item-price"
+                        className="text-stone-700 font-semibold text-lg"
+                      >
+                        <label
+                          htmlFor="item-price"
+                          className="text-stone-700 font-semibold text-lg"
+                        >
+                          {itemName
+                            ? `What Would Be The Price For The ${itemName} 💰`
+                            : "What Would Be The Price For Your Product 💰"}
+                        </label>
+                      </label>
+                      <input
+                        type="text"
+                        name=""
+                        id="item-price"
+                        value={itemPrice}
+                        onChange={(e) => {
+                          setItemPrice(e.target.value);
+                        }}
+                        className="rounded-full p-2 w-80"
+                      />
+                    </span>
+                    <span className="flex flex-row gap-2 justify-between items-center mb-4">
+                      <label
+                        htmlFor="item-image"
+                        className="text-stone-700 font-semibold text-lg"
+                      >
+                        {itemName
+                          ? `Please Add An Image Of ${itemName}📸 `
+                          : "Please Add An Image Of Your Product 📸"}
+                      </label>
+                      <input
+                        type="file"
+                        accept="image/*" // Added accept attribute for image files
+                        onChange={handleImageChange}
+                        className="rounded-full p-2 file:p-1 file:bg-blue-300 file:rounded-sm file:hover:bg-blue-200 file:cursor-pointer file:text-stone-900 w-80"
+                      />
+                    </span>
+                    <span className="flex flex-row gap-2 justify-between items-center mb-5">
+                      <label
+                        htmlFor="item-description"
+                        className="text-stone-700 font-semibold text-lg"
+                      >
+                        Describe Your Product Under 300 Words 📝
+                      </label>
+                      <textarea
+                        type="text"
+                        name=""
+                        id="item-description"
+                        value={itemDescribe}
+                        onChange={(e) => {
+                          setItemDescribe(e.target.value);
+                        }}
+                        className="rounded-md p-1 w-80"
+                      />
+                    </span>
+                    {itemName && (
+                      <div className="flex justify-center">
+                        <button className="text-md border-2 border-blue-200 bg-blue-500 rounded-xl p-3 text-stone-900 font-medium w-48 hover:w-56 transition-all duration-300 hover:text-stone-50">
+                          Display for Rent
+                        </button>
+                      </div>
+                    )}
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </ProtectedRoute>
