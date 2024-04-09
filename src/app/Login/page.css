@@ -1,3 +1,9 @@
+body {
+  /* color: green; */
+  background: linear-gradient(to bottom, #0172af, #74febd);
+  color: #333333;
+}
+
 /* Style for the sign-in page container */
 .sign-in-page {
   display: flex;
