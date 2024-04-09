@@ -16,9 +16,9 @@ const page = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [type, setType] = useState("");
+  // const [type, setType] = useState("");
 
-  const { googleSignIn, loggedUser } = UserAuth();
+  const { googleSignIn } = UserAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

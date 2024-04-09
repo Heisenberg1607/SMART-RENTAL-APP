@@ -20,8 +20,6 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  // const [email, setEmail] = useState("");
-  let loggedUser = { name: "", email: "", password: "", type: "" };
 
   async function addDataToFireStore(
     name,
@@ -72,49 +70,36 @@ export const AuthContextProvider = ({ children }) => {
       });
   };
 
-  const googleSignIn = (email, password) => {
-    const provider = new GoogleAuthProvider();
+  const googleSignIn = async (email, password) => {
+    try {
+      const authInstance = getAuth();
+      const userCredential = await signInWithEmailAndPassword(
+        authInstance,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      alert("Welcome " + user.email);
 
-    const authInstance = getAuth();
+      const docRef = doc(db, "users", email);
+      const docSnap = await getDoc(docRef);
+      const docData = docSnap.data();
 
-    signInWithEmailAndPassword(authInstance, email, password)
-      .then(async (userCredential) => {
-        const user = userCredential.user;
-        console.log("Signed In", user);
-        alert("Welcome " + user.email);
-        const docRef = doc(db, "users", email);
-        const docSnap = await getDoc(docRef);
-        const docData = docSnap.data();
-        console.log(docData.name);
-        loggedUser = {
-          name: docData.name,
-          email: docData.email,
-          password: docData.password,
-          type: docData.type,
-          walletAddress: docData.walletAddress,
-        };
-        console.log("logged in user: ", loggedUser);
-        // setLoggedUser(loggedUser => ({  newData }));
-        // console.log("logged in user: ", loggedUser);
-        setIsAuthenticated(true);
+      setIsAuthenticated(true);
 
-        if (loggedUser.type == "Owner") {
-          sessionStorage.setItem("email", loggedUser.email);
-          sessionStorage.setItem("type", loggedUser.type);
-          router.push("/Owner");
-          router.refresh();
-        } else {
-          sessionStorage.setItem("email", loggedUser.email);
-          sessionStorage.setItem("type", loggedUser.type);
-          router.push("/Borrower");
-        }
-      })
-      .catch((error) => {
-        alert("Wrong Credential");
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
-      });
+      sessionStorage.setItem("email", docData.email);
+      sessionStorage.setItem("type", docData.type);
+
+      if (docData.type === "Owner") {
+        router.push("/Owner");
+        router.refresh();
+      } else {
+        router.push("/Borrower");
+      }
+    } catch (error) {
+      alert("Wrong Credential");
+      console.error("Error signing in:", error);
+    }
   };
 
   const logOut = () => {
@@ -159,7 +144,6 @@ export const AuthContextProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        loggedUser,
         googleSignIn,
         logOut,
         createUser,

@@ -18,7 +18,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 
 const page = () => {
   const router = useRouter();
-  const { loggedUser, logOut, storeItemData } = UserAuth();
+  const { logOut, storeItemData } = UserAuth();
 
   const [itemName, setItemName] = useState();
   const [itemPrice, setItemPrice] = useState();
@@ -76,13 +76,6 @@ const page = () => {
     router.push("/Owner");
   };
 
-  // const handleImageChange = (e) => {
-  //   const file = e.target.files[0];
-  //   setImage(file);
-  //   console.log(image);
-  // }
-
-  // console.log("from owner page: ", loggedUser);
   return (
     <>
       <ProtectedRoute>
