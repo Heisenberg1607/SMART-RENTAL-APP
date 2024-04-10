@@ -75,7 +75,7 @@ const page = () => {
       <h1 className="text-lg font-semibold text-center font-mono">
         Hello, {userNameOfCustomer}
       </h1>
-      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
         {isLoading ? (
           <Loader />
         ) : (
@@ -87,7 +87,6 @@ const page = () => {
 };
 
 function Item({ item, handleClick }) {
-
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(() => {
@@ -109,21 +108,29 @@ function Item({ item, handleClick }) {
   return (
     <li
       key={item.id}
-      className="flex flex-col gap-1 text-center justify-center items-center p-3"
+      className="flex flex-col gap-2 text-center justify-center items-center p-3"
     >
-      <div className="rounded-lg overflow-hidden shadow-md bg-white md:w-80 w-64 p-8">
-        <img src={imageUrl} alt="Product" className="w-full" />
-        <p className="email">Owner: {item.email}</p>
-        <p className=" item-name">Product-Name: {item.itemName}</p>
-        <p className="item-price">Product-Price: {item.itemPrice}</p>
-        <p className="item-price">Product-Description: {item.itemDescribe}</p>
-
-        <Button
-          type="rentBorrowerButton"
-          onClick={() => handleClick(item.email)}
-        >
-          Rent this Product
-        </Button>
+      <div className="rounded-lg overflow-hidden shadow-lg bg-white w-full md:max-w-md rounded-b-md">
+        <div className="relative md:h-64 w-full h-full ml-0 mt-0">
+          <img
+            src={imageUrl}
+            alt="Product"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        </div>
+        <div className="mt-4">
+          <p className="email">Owner: {item.email}</p>
+          <p className="item-name">Product-Name: {item.itemName}</p>
+          <p className="item-price">Product-Price: {item.itemPrice}</p>
+          <p className="item-price">Product-Description: {item.itemDescribe}</p>
+          <Button
+            type="rentBorrowerButton"
+            onClick={() => handleClick(item.email)}
+            className="mt-3"
+          >
+            Rent this Product
+          </Button>
+        </div>
       </div>
     </li>
   );

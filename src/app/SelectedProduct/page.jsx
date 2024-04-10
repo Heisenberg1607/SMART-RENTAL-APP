@@ -50,11 +50,8 @@ const page = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto mb-96 mt-8 text-center">
+    <div className="max-w-md mx-auto mb-96 mt-14 text-center">
       <div className="bg-white rounded-lg overflow-hidden shadow-lg p-6">
-        <Button onClick={handleBack} type="goBack" className="mb-4">
-          👈 Go Back
-        </Button>
         <div className="mb-4">
           <p className="text-xl font-semibold">Product Name: {data.itemName}</p>
           <p className="text-gray-600">
@@ -62,9 +59,14 @@ const page = () => {
           </p>
           <p className="text-gray-600">Product Price: {data.itemPrice}</p>
         </div>
-        <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
-          Rent this product
-        </button>
+        <div className="flex flex-row gap-2 justify-center items-center">
+          <Button onClick={handleBack} type="goBack" className="mb-4">
+            👈 Go Back
+          </Button>
+          <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
+            Rent this product
+          </button>
+        </div>
       </div>
     </div>
   );
