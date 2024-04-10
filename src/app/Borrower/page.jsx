@@ -19,10 +19,14 @@ import {
 import CryptoJS from "crypto-js";
 import Button from "../components/Button";
 import Loader from "../components/Loader";
+import { constants, ethers } from "ethers";
+import Web3Modal from "web3modal";
+const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
 
 const page = () => {
   const [items, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   // useEffect(() => {
   //   const colRef = collection(db, "products");
@@ -47,6 +51,7 @@ const page = () => {
   const router = useRouter();
 
   useEffect(() => {
+    checkWalletIsConnected();
     setIsLoading(true);
     const colRef = query(collection(db, "products"));
     let product_data = [];
@@ -64,6 +69,29 @@ const page = () => {
     router.push(`/SelectedProduct?itemId=${itemId}`);
   };
 
+  const checkWalletIsConnected = async () => {
+    setErrorMessage("To get product list please connect Metamask!");
+    if (window.ethereum || window.ethereum.isConnected()) {
+      const account = await window.ethereum.request({method: "eth_accounts"})
+      if (account.length){
+        accountChangedHandler(provider.getSigner());
+      }
+      else{
+        provider.send("eth_requestAccounts", []).then(async () => {
+          await accountChangedHandler(provider.getSigner());
+        });
+      }
+    } else {
+      console.log("error")
+      setErrorMessage("Please Install Metamask!!!");
+    }
+  };
+
+  const accountChangedHandler = async (newAccount) => {
+    const address = await newAccount.getAddress();
+    setErrorMessage(null)
+  };
+
   // Decryption of the userName
   const encryptedData = sessionStorage.getItem("encryptedUserName");
   const decryptedBytes = CryptoJS.AES.decrypt(encryptedData, "secretKey");
@@ -75,13 +103,15 @@ const page = () => {
       <h1 className="text-lg font-semibold text-center font-mono">
         Hello, {userNameOfCustomer}
       </h1>
+      {!errorMessage ? (
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
         {isLoading ? (
           <Loader />
         ) : (
           items.map((item) => <Item item={item} handleClick={handleClick} />)
         )}
-      </ul>
+      </ul>) : errorMessage
+      }
     </div>
   );
 };
