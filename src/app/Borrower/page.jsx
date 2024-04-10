@@ -72,24 +72,23 @@ const page = () => {
   const checkWalletIsConnected = async () => {
     setErrorMessage("To get product list please connect Metamask!");
     if (window.ethereum || window.ethereum.isConnected()) {
-      const account = await window.ethereum.request({method: "eth_accounts"})
-      if (account.length){
+      const account = await window.ethereum.request({ method: "eth_accounts" });
+      if (account.length) {
         accountChangedHandler(provider.getSigner());
-      }
-      else{
+      } else {
         provider.send("eth_requestAccounts", []).then(async () => {
           await accountChangedHandler(provider.getSigner());
         });
       }
     } else {
-      console.log("error")
+      console.log("error");
       setErrorMessage("Please Install Metamask!!!");
     }
   };
 
   const accountChangedHandler = async (newAccount) => {
     const address = await newAccount.getAddress();
-    setErrorMessage(null)
+    setErrorMessage(null);
   };
 
   // Decryption of the userName
@@ -104,14 +103,16 @@ const page = () => {
         Hello, {userNameOfCustomer}
       </h1>
       {!errorMessage ? (
-      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-        {isLoading ? (
-          <Loader />
-        ) : (
-          items.map((item) => <Item item={item} handleClick={handleClick} />)
-        )}
-      </ul>) : errorMessage
-      }
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+          {isLoading ? (
+            <Loader />
+          ) : (
+            items.map((item) => <Item item={item} handleClick={handleClick} />)
+          )}
+        </ul>
+      ) : (
+        errorMessage
+      )}
     </div>
   );
 };
@@ -158,7 +159,7 @@ function Item({ item, handleClick }) {
             onClick={() => handleClick(item.email)}
             className="mt-3"
           >
-            Rent this Product
+            View More
           </Button>
         </div>
       </div>
