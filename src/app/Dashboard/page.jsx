@@ -95,7 +95,7 @@ const itemCard = () => {
         </marquee>
         {/* <button onClick={fetchDataFromFireStore}>get data</button> */}
 
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
           {isLoading ? (
             <Loader />
           ) : (
@@ -133,33 +133,36 @@ function Item({ item, handleApprove }) {
   return (
     <li
       key={item.id}
-      className="flex flex-col gap-1 text-center justify-center items-center p-3"
+      className="flex flex-col gap-2 text-center justify-center items-center p-3"
     >
-      <div className="rounded-lg overflow-hidden shadow-md bg-white md:w-80 w-64 p-8">
-        <img
-          src={imageUrl}
-          alt="image"
-          
-        />
-        <p className="email">Owner: {item.email}</p>
-        <p className=" item-name">Product-Name: {item.itemName}</p>
-        <p className="item-price">Product-Price: {item.itemPrice}</p>
-        <p className="item-price">Product-Description: {item.itemDescribe}</p>
-        <p>{item.id}</p>
-        <div className="flex flex-row space-x-3 justify-center">
-          <button
-            className="cursor-pointer bg-green-500 rounded-lg p-2 mt-3 transition-all duration-300 hover:bg-green-400 hover:text-stone-800 text-stone-700 font-semibold hover:tracking-wider"
-            onClick={() => handleApprove(item.id)}
-          >
-            Accept
-          </button>
+      <div className="rounded-lg overflow-hidden shadow-lg bg-white w-full md:max-w-md rounded-b-md">
+        <div className="relative md:h-64 w-full h-full ml-0 mt-0">
+          <img
+            src={imageUrl}
+            alt="Product"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        </div>
+        <div className="mt-4">
+          <p className="email">Owner: {item.email}</p>
+          <p className="item-name">Product-Name: {item.itemName}</p>
+          <p className="item-price">Product-Price: {item.itemPrice}</p>
+          <p className="item-price">Product-Description: {item.itemDescribe}</p>
+          <div className="flex flex-row space-x-3 justify-center mt-2 mb-4">
+            <button
+              className="cursor-pointer bg-green-500 rounded-lg p-2 mt-3 transition-all duration-300 hover:bg-green-400 hover:text-stone-800 text-stone-700 font-semibold hover:tracking-wider"
+              onClick={() => handleApprove(item.id)}
+            >
+              Accept
+            </button>
 
-          <button
-            // onClick={() => handleDelete(item.id)}
-            className="cursor-pointer bg-red-500 rounded-lg p-2 mt-3 transition-all duration-300 hover:bg-red-400 hover:text-stone-800 text-stone-700 font-semibold hover:tracking-wider"
-          >
-            Reject
-          </button>
+            <button
+              // onClick={() => handleDelete(item.id)}
+              className="cursor-pointer bg-red-500 rounded-lg p-2 mt-3 transition-all duration-300 hover:bg-red-400 hover:text-stone-800 text-stone-700 font-semibold hover:tracking-wider"
+            >
+              Reject
+            </button>
+          </div>
         </div>
       </div>
     </li>
