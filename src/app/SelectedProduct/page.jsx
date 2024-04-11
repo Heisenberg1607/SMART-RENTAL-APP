@@ -186,7 +186,7 @@ const page = () => {
               </div>
             </div>
           </div>
-          <div className="w-96 h-96 bg-[#638ECB] p-6 rounded-md">
+          <div className="w-96 h-96 bg-[#638ECB] p-6 rounded-md shadow-md hover:shadow-lg transition-all duration-300">
             <h1 className="text-2xl  tracking-wider relative top-0 font-bold text-[#D5DEEF] text-center">
               Details About The Owner Of This Product
             </h1>
