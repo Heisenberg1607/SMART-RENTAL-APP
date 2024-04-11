@@ -22,12 +22,13 @@ const page = () => {
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const docRef = doc(db, "products", `${email}`);
+        const docRef = doc(db, "products", email);
 
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
           setData(docSnap.data());
+          console.log("this is data: ", data);
         }
       } catch (error) {
         console.log(error);
@@ -37,8 +38,10 @@ const page = () => {
     if (email) {
       fetchProductData();
     }
-  }, []);
-  console.log(data);
+
+    
+  }, [email]);
+  console.log("data in state", data);
 
   const handleDelete = () => {
     try {
@@ -52,7 +55,7 @@ const page = () => {
 
   return (
     <div>
-      {data.exists ? (
+      {data !== null ? (
         <div className="rounded-lg overflow-hidden shadow-md bg-white md:w-80 w-64 p-8">
           <p className="email">Owner: {data.email}</p>
           <p className=" item-name">Product-Name: {data.itemName} </p>

@@ -21,7 +21,7 @@ import { constants, ethers } from "ethers";
 import Web3Modal from "web3modal";
 import contract from "../Context/TransferEth.json";
 // import contract from "../Context/RecieveEth.json";
-const ContractAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
+const ContractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 const ContractABI =  contract.abi;
 const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
 //Fetching Contact from blockchain
@@ -123,7 +123,7 @@ const page = () => {
       const options = { value: ethers.utils.parseEther(price) }
       // const trancaction = await contract.transferEther(ownerAddress,options)
       // const trancaction = await contract.getBalance()
-        const trancaction = await contract.transferEther(ownerAddress,options)
+      const trancaction = await contract.transferEther(ownerAddress,options)
       // const trancaction3 = await contract.withdrawMoney()
       const trancaction2 = await contract.getBalance()
       console.log(trancaction)

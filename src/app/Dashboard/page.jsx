@@ -11,6 +11,15 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
+import { storage } from "../firebase";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+  uploadString,
+  uploadTaskSnapshot,
+} from "firebase/storage";
 import Link from "next/link";
 import { formControlClasses } from "@mui/material";
 import "./page.css";
@@ -18,25 +27,40 @@ import Loader from "../components/Loader";
 import { useSignUp } from "../Context/SignupContext";
 
 const itemCard = () => {
-  const [items, setData] = useState([]);
+  const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const { adminName } = useSignUp();
 
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   const colRef = query(collection(db, "products"));
+  //   console.log(colRef);
+  //   let product_data = [];
+  //   const q = onSnapshot(colRef, (querySnapshot) => {
+  //     querySnapshot.forEach((doc) => {
+  //       console.log(doc.data());
+  //       product_data.push({ ...doc.data(), id: doc.id });
+  //     });
+  //     console.log(product_data);
+  //     setData(product_data);
+  //     setIsLoading(false);
+  //   });
+  // }, []);
+
   useEffect(() => {
     setIsLoading(true);
-    const colRef = query(collection(db, "products"));
-    console.log(colRef);
-    let product_data = [];
-    const q = onSnapshot(colRef, (querySnapshot) => {
+    const q = query(collection(db, "products"), where("approved", "==", false));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const productData = [];
       querySnapshot.forEach((doc) => {
-        console.log(doc.data());
-        product_data.push({ ...doc.data(), id: doc.id });
+        productData.push({ ...doc.data(), id: doc.id });
       });
-      console.log(product_data);
-      setData(product_data);
+      setItems(productData);
       setIsLoading(false);
     });
+
+    return () => unsubscribe();
   }, []);
 
   const handleApprove = (id) => {
@@ -46,6 +70,12 @@ const itemCard = () => {
     updateDoc(docRef, {
       approved: true,
     });
+  };
+
+  const handleDelete = (id) => {
+    const docRef = doc(db, "products", id);
+    deleteDoc(docRef);
+    console.alert("product deleted!");
   };
 
   return (
@@ -82,12 +112,35 @@ const itemCard = () => {
 export default itemCard;
 
 function Item({ item, handleApprove }) {
+  const [imageUrl, setImageUrl] = useState(null);
+
+  useEffect(() => {
+    // Fetch image URL from Firebase Storage
+    const fetchImageUrl = async () => {
+      try {
+        const imageRef = ref(storage, `images/${item.email}`);
+        const url = await getDownloadURL(imageRef);
+        setImageUrl(url);
+        console.log(imageUrl);
+      } catch (error) {
+        console.error("Error fetching image URL:", error);
+      }
+    };
+
+    fetchImageUrl(); // Fetch the image URL when the component mounts
+  }, [item.email]);
+
   return (
     <li
       key={item.id}
       className="flex flex-col gap-1 text-center justify-center items-center p-3"
     >
       <div className="rounded-lg overflow-hidden shadow-md bg-white md:w-80 w-64 p-8">
+        <img
+          src={imageUrl}
+          alt="image"
+          
+        />
         <p className="email">Owner: {item.email}</p>
         <p className=" item-name">Product-Name: {item.itemName}</p>
         <p className="item-price">Product-Price: {item.itemPrice}</p>
@@ -101,15 +154,12 @@ function Item({ item, handleApprove }) {
             Accept
           </button>
 
-          <Link
-            href={{
-              pathname: "/SelectedProduct",
-              query: { id: `${item.id}` },
-            }}
+          <button
+            // onClick={() => handleDelete(item.id)}
             className="cursor-pointer bg-red-500 rounded-lg p-2 mt-3 transition-all duration-300 hover:bg-red-400 hover:text-stone-800 text-stone-700 font-semibold hover:tracking-wider"
           >
             Reject
-          </Link>
+          </button>
         </div>
       </div>
     </li>

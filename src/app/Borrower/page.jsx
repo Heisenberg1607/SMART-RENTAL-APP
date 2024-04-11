@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 // import productData from "../data";
 import { db } from "../firebase";
-import { collection, query, onSnapshot, getDoc } from "firebase/firestore";
+import { collection, query, onSnapshot, getDoc, where } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import "./page.css";
 import { useSignUp } from "../Context/SignupContext";
@@ -53,7 +53,10 @@ const page = () => {
   useEffect(() => {
     checkWalletIsConnected();
     setIsLoading(true);
-    const colRef = query(collection(db, "products"));
+    const colRef_temp = query(collection(db, "products"));
+     
+    const colRef = query(colRef_temp, where("approved", "==", true));
+    
     let product_data = [];
     const q = onSnapshot(colRef, (querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -62,6 +65,9 @@ const page = () => {
       setData(product_data);
       setIsLoading(false);
     });
+
+
+    
   }, []);
 
   const handleClick = (itemId) => {
@@ -124,7 +130,7 @@ function Item({ item, handleClick }) {
     // Fetch image URL from Firebase Storage
     const fetchImageUrl = async () => {
       try {
-        const imageRef = ref(storage, `images/${item.email}`); // Assuming the image is stored with the same email as in Firestore
+        const imageRef = ref(storage, `images/${item.email}`); 
         const url = await getDownloadURL(imageRef);
         setImageUrl(url);
         console.log(imageUrl);
