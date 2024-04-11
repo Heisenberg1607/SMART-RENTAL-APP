@@ -70,7 +70,7 @@ const page = () => {
   useEffect(() => {
     const fetchImageUrl = async () => {
       try {
-        const imageRef = ref(storage, `images/${item.email}`);
+        const imageRef = ref(storage, `images/${data.email}`);
         const url = await getDownloadURL(imageRef);
         setImageUrl(url);
         console.log(imageUrl);
@@ -79,7 +79,7 @@ const page = () => {
       }
     };
     fetchImageUrl();
-  }, [item.email]);
+  }, [data.email]);
 
   return (
     <>
