@@ -28,21 +28,33 @@ export const AuthContextProvider = ({ children }) => {
     password,
     walletAddress
   ) {
+    console.log("we are in addDataToFirestore");
     console.log("email is this in AuthCon", email);
 
     try {
       console.log("this is type in AuthContext", type);
       console.log("this is type in AuthContext", email);
-      const docRef = await setDoc(doc(collection(db, "users"), email), {
-        name: name,
-        email: email,
-        type: type,
-        password: password,
-        walletAddress: walletAddress,
-      });
-      setDoc(doc(db, `products/${email}`), {
-        id: email,
-      });
+
+      if (type === "Owner") {
+        const docRef = await setDoc(doc(collection(db, "users"), email), {
+          name: name,
+          email: email,
+          type: type,
+          password: password,
+          walletAddress: walletAddress,
+        });
+      } else {
+        const docRef = await setDoc(doc(collection(db, "users"), email), {
+          name: name,
+          email: email,
+          type: type,
+          password: password,
+          // walletAddress: walletAddress,
+        });
+      }
+      // setDoc(doc(db, `products/${email}`), {
+      //   id: email,
+      // });
       console.log("Document written with ID: ", docRef.id);
       return true;
     } catch (error) {
@@ -57,7 +69,7 @@ export const AuthContextProvider = ({ children }) => {
         // Signed up
         const user = userCredential.user;
 
-        console.log(user);
+        console.log("the user is logged in: ", user);
         // ...
       })
       .catch((error) => {
@@ -79,22 +91,49 @@ export const AuthContextProvider = ({ children }) => {
         password
       );
       const user = userCredential.user;
+
       alert("Welcome " + user.email);
 
       const docRef = doc(db, "users", email);
+      console.log(docRef);
       const docSnap = await getDoc(docRef);
-      const docData = docSnap.data();
+      console.log(docSnap);
+      //   const docData = docSnap.data();
+      //   console.log("this is doc data",docData);
 
-      setIsAuthenticated(true);
+      //   setIsAuthenticated(true);
 
-      sessionStorage.setItem("email", docData.email);
-      sessionStorage.setItem("type", docData.type);
+      //   console("email", docData.email);
+      //   sessionStorage.setItem("email", docData.email);
+      //   sessionStorage.setItem("type", docData.type);
 
-      if (docData.type === "Owner") {
-        router.push("/Owner");
-        router.refresh();
+      //   if (docData.type === "Owner") {
+      //     router.push("/Owner");
+      //     router.refresh();
+      //   } else {
+      //     router.push("/Borrower");
+      //   }
+      // } catch (error) {
+      //   alert("Wrong Credential");
+      //   console.error("Error signing in:", error);
+      // }
+
+      if (docSnap.exists()) {
+        const docData = docSnap.data();
+
+        setIsAuthenticated(true);
+
+        sessionStorage.setItem("email", docData.email);
+        sessionStorage.setItem("type", docData.type);
+
+        if (docData.type === "Owner") {
+          router.push("/Owner");
+          router.refresh();
+        } else {
+          router.push("/Borrower");
+        }
       } else {
-        router.push("/Borrower");
+        alert("User data not found");
       }
     } catch (error) {
       alert("Wrong Credential");
