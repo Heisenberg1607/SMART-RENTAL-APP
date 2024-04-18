@@ -33,6 +33,10 @@ export default function RootLayout({ children }) {
               },
             },
             error: {
+              iconTheme: {
+                primary: "white",
+                secondary: "black",
+              },
               duration: 5000,
               style: {
                 background: "#F85046",
