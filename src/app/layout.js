@@ -6,6 +6,7 @@ import { AuthContextProvider } from "./Context/AuthContext.jsx";
 import "./globals.css";
 import { SignUpProvider } from "./Context/SignupContext.jsx";
 import Footer from "./components/Footer.jsx";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,39 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Toaster
+          position="top-center"
+          gutter={12}
+          containerStyle={{ margin: "8px" }}
+          toastOptions={{
+            success: {
+              duration: 3000,
+              style: {
+                // background: "linear-gradient(to right, #65F4CD, #4799E9)",
+                background: "#DCE0AC",
+                color: "#161616",
+              },
+            },
+            error: {
+              duration: 5000,
+              style: {
+                background: "#F85046",
+                color: "#ECF9FC",
+              },
+              // iconTheme: {
+              //   primary: "#F85046", // Color of the inner circle
+              //   secondary: "#ECF9FC", // Background color of the inner circle
+              // },
+            },
+            style: {
+              fontSize: "16px",
+              maxWidth: "500px",
+              padding: "16px 24px",
+              backgroundColor: "var(--color-grey-0)",
+              color: "var(--color-grey-700)",
+            },
+          }}
+        />
         <AuthContextProvider>
           <SignUpProvider>
             <Navbar />

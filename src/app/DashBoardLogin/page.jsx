@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import "./page.css";
 import { useSignUp } from "../Context/SignupContext";
+import toast from "react-hot-toast";
 
 const page = () => {
   const router = useRouter();
@@ -42,10 +43,10 @@ const page = () => {
     );
 
     if (user) {
-      alert(`Welcome, ${user.name}!`);
+      toast.success(`Welcome, ${user.name}!`);
       gotToDashBoard();
     } else {
-      alert("Invalid credentials. Please try again.");
+      toast.error("Invalid credentials. Please try again.");
     }
   };
 

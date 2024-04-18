@@ -6,6 +6,7 @@ import Button from "./components/Button";
 import { useSignUp } from "./Context/SignupContext";
 // import "./globals.css"
 import CryptoJS from "crypto-js";
+import toast from "react-hot-toast";
 
 export default function Home() {
   const { userName, handleUserName } = useSignUp();

@@ -12,6 +12,7 @@ import {
 import { collection, addDoc, doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const AuthContext = createContext();
 
@@ -92,7 +93,7 @@ export const AuthContextProvider = ({ children }) => {
       );
       const user = userCredential.user;
 
-      alert("Welcome " + user.email);
+      toast.success("Welcome " + user.email);
 
       const docRef = doc(db, "users", email);
       console.log(docRef);
@@ -133,10 +134,10 @@ export const AuthContextProvider = ({ children }) => {
           router.push("/Borrower");
         }
       } else {
-        alert("User data not found");
+        toast.error("User data not found");
       }
     } catch (error) {
-      alert("Wrong Credential");
+      toast.error("Wrong Credential");
       console.error("Error signing in:", error);
     }
   };
