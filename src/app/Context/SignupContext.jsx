@@ -1,5 +1,6 @@
 import { createContext, useState, useContext } from "react";
 import { UserAuth } from "../Context/AuthContext";
+import toast from "react-hot-toast";
 
 const SignupContext = createContext();
 
@@ -38,7 +39,7 @@ export function SignUpProvider({ children }) {
       setEmail("");
       setType("");
 
-      alert("Account Created");
+      toast.success("Account Created");
     }
     console.log(email, password);
     // googleSignIn(email, password);

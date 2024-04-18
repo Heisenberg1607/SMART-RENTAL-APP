@@ -1,8 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
-// import productData from "../data";
+import toast from "react-hot-toast";
 import { db } from "../firebase";
-import { collection, query, onSnapshot, getDoc, where } from "firebase/firestore";
+import {
+  collection,
+  query,
+  onSnapshot,
+  getDoc,
+  where,
+} from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import "./page.css";
 import { useSignUp } from "../Context/SignupContext";
@@ -20,7 +26,8 @@ import CryptoJS from "crypto-js";
 import Button from "../components/Button";
 import Loader from "../components/Loader";
 import { constants, ethers } from "ethers";
-import Web3Modal from "web3modal";
+import { UserAuth } from "../Context/AuthContext";
+
 const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
 
 const page = () => {
@@ -49,14 +56,15 @@ const page = () => {
   // }, []);
 
   const router = useRouter();
+  const { isAuthenticated } = UserAuth();
 
   useEffect(() => {
     checkWalletIsConnected();
     setIsLoading(true);
     const colRef_temp = query(collection(db, "products"));
-     
+
     const colRef = query(colRef_temp, where("approved", "==", true));
-    
+
     let product_data = [];
     const q = onSnapshot(colRef, (querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -65,14 +73,12 @@ const page = () => {
       setData(product_data);
       setIsLoading(false);
     });
-
-
-    
   }, []);
 
   const handleClick = (itemId) => {
     // const colRef = getDoc(db, `user/${email}`);
-    router.push(`/SelectedProduct?itemId=${itemId}`);
+    if (isAuthenticated) router.push(`/SelectedProduct?itemId=${itemId}`);
+    else router.push("Login");
   };
 
   const checkWalletIsConnected = async () => {
@@ -89,6 +95,7 @@ const page = () => {
     } else {
       console.log("error");
       setErrorMessage("Please Install Metamask!!!");
+      toast.error("Please Install Metamask!!!");
     }
   };
 
@@ -113,7 +120,13 @@ const page = () => {
           {isLoading ? (
             <Loader />
           ) : (
-            items.map((item) => <Item item={item} handleClick={handleClick} />)
+            items.map((item) => (
+              <Item
+                item={item}
+                handleClick={handleClick}
+                isAuthenticated={isAuthenticated}
+              />
+            ))
           )}
         </ul>
       ) : (
@@ -123,14 +136,14 @@ const page = () => {
   );
 };
 
-function Item({ item, handleClick }) {
+function Item({ item, handleClick, isAuthenticated }) {
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(() => {
     // Fetch image URL from Firebase Storage
     const fetchImageUrl = async () => {
       try {
-        const imageRef = ref(storage, `images/${item.email}`); 
+        const imageRef = ref(storage, `images/${item.email}`);
         const url = await getDownloadURL(imageRef);
         setImageUrl(url);
         console.log(imageUrl);
@@ -165,7 +178,7 @@ function Item({ item, handleClick }) {
             onClick={() => handleClick(item.email)}
             className="mt-3"
           >
-            View More
+            {isAuthenticated ? `View More` : "Log In To View More"}
           </Button>
         </div>
       </div>

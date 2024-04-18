@@ -39,7 +39,7 @@ const Navbar = () => {
           </IconButton>
 
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <button onClick={goToHomeage}>Smart Rental App Logo</button>
+            <button onClick={goToHomeage}>Rentify Logo</button>
           </Typography>
 
           {sessionStorage.getItem("email") ? (

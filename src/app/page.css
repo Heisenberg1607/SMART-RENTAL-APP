@@ -42,3 +42,12 @@
 .sign-in button:hover {
   background-color: #0056b3;
 }
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}

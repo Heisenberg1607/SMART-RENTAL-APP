@@ -163,7 +163,7 @@ export const AuthContextProvider = ({ children }) => {
 
         approved: false,
       }).then(() => {
-        alert("Product added!");
+        toast.success("Product added Successfully!");
         console.log("Document written with ID: ", docRef.id);
         return true;
       });

@@ -1,12 +1,9 @@
 "use client";
-import Head from "next/head";
 import "./home.css";
 import Button from "./components/Button";
-// import { useState } from "react";
 import { useSignUp } from "./Context/SignupContext";
-// import "./globals.css"
 import CryptoJS from "crypto-js";
-import toast from "react-hot-toast";
+import { useTextAnimation } from "./useTextAnimation";
 
 export default function Home() {
   const { userName, handleUserName } = useSignUp();
@@ -18,18 +15,19 @@ export default function Home() {
   ).toString();
   sessionStorage.setItem("encryptedUserName", encryptedData);
 
+  // A custom hook for text animation.
+  const { typedText } = useTextAnimation();
+
   return (
     <>
       <div className="home-page">
-        <h1 className="text-5xl text-stone-900 mt-7 absolute top-16 tracking-widest">
-          Smart Rental Application.Co
+        <h1 className="text-4xl text-stone-900 mt-7 absolute top-16 tracking-widest">
+          Rentify -{" "}
+          <span className="text-blue-900 text-md font-medium">{typedText}</span>
         </h1>
         <p className="text-center w-[850px] font-normal text-lg mt-0 tracking-wider mb-16">
-          Welcome to{" "}
-          <strong className="text-blue-900 text-md">
-            Smart Rental Application.Co
-          </strong>
-          , your premier destination for streamlined rental solutions powered by
+          Welcome to <strong className="text-blue-900 text-md">Rentify</strong>,
+          your premier destination for streamlined rental solutions powered by
           <strong className="capitalize"> blockchain technology</strong>. Our
           innovative platform revolutionizes the rental process, offering secure
           transactions and transparent agreements for both property owners and
@@ -43,7 +41,7 @@ export default function Home() {
           className="flex-col text-center mb-4"
         >
           <h1 className="font-semibold text-stone-800 text-2xl mb-2 tracking-wide ">
-            Welcome to our App!
+            Begin Entering Your Name
           </h1>
           <input
             type="text"
@@ -58,7 +56,7 @@ export default function Home() {
           <div className="flex space-x-4">
             <span>
               <Button destination={"./Borrower"} type="homepageButton">
-                Get Started
+                Surf Products
               </Button>
             </span>
             <span>
