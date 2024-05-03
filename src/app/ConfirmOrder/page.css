@@ -28,7 +28,7 @@
 }
 
 .confirm-text::after {
-  content: 'Thank you for using our app!'; /* Text after the checkmark */
+  content: 'Please rate the experience!'; /* Text after the checkmark */
   display: block;
   font-size: 18px;
   color: #666666; /* Slightly lighter text color for the message */
